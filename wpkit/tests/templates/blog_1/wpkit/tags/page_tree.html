@@ -1,0 +1,15 @@
+{% load wpkit_tree %}
+<div class="nav-menu">
+    <ul class="">
+        {% wpkit_rendertree pages max_level %}
+        <li class="page_item page-item-{{node.id}}{% if not is_leaf %} page_item_has_children{% endif %}">
+            <a href="{{node.url}}">{{node.title}}</a>
+            {% if not is_leaf %}
+            <ul class="children">
+                {{children}}
+            </ul>
+            {% endif %}
+        </li>
+        {% wpkit_endrendertree %}
+    </ul>
+</div>

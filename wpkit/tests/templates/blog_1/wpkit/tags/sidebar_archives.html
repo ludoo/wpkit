@@ -1,0 +1,8 @@
+<aside id="archives-2" class="widget widget_archive">
+    <h1 class="widget-title">Archives</h1>
+    <ul>
+        {% for archive in archives %}
+        <li><a href="{% url 'wpkit_archive' year=archive.date.year month=archive.date.month %}">{{archive.date|date:"F Y"}}</a></li>
+        {% endfor %}
+    </ul>
+</aside>

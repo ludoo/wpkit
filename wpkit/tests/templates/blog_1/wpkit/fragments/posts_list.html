@@ -1,0 +1,60 @@
+{% load wpkit_extras %}
+{% load wpkit_content %}
+
+{% for post in page.object_list %}
+<!--article id="post-22" class="post-22 post type-post status-publish format-gallery hentry category-category-1 category-category-1-1 tag-tag1 tag-tag2" -->
+<!--
+post-22 post type-post status-publish format-gallery hentry category-category-1 category-category-1-1 tag-tag1 tag-tag2
+post hentry
+post-22 type-post status-publish format-gallery category-category-1 category-category-1-1
+-->
+<article id="post-{{post.id}}" class="post hentry {{post|wpkit_post_cssclasses}}">
+    <header class="entry-header">
+        <div class="entry-meta">
+            {% if post.categories %}
+            <span class="cat-links">
+                {% for category in post.categories %}
+                <a href="{{category.url}}" rel="category tag">{{category.term.name}}</a>{% if not forloop.last %}, {% endif %}
+                {% endfor %}
+            </span>
+            {% endif %}
+        </div>
+        <h1 class="entry-title"><a rel="bookmark" href="{{post.url}}">{{post.title}}</a></h1>
+        <div class="entry-meta">
+            {% if post.format %}
+            <span class="post-format">
+                <a class="entry-format" href="{{post.format.url}}">{{post.format.normalized_name}}</a>
+            </span>
+            {% endif %}
+            <span class="entry-date">
+                <a href="{{post.url}}" rel="bookmark"><time class="entry-date" datetime="{{post.date_gmt|wpkit_rfc3339_utc}}">{{post.date|date:request.blog.settings.date_format}}</time></a>
+            </span>
+            <span class="byline">
+                <span class="author vcard"><a class="url fn n" href="{{post.author.url}}" rel="author">{{post.author.display_name}}</a></span>
+            </span>
+            {% if post.comment_status == 'open' or post.comment_count > 0 %}
+            <span class="comments-link">
+                {% if post.comment_count == 0 %}
+                <a href="{{post.url}}#respond" title="Comment on {{post.title|escape}}">Leave a comment</a>
+                {% else %}
+                <a href="{{post.url}}#comments" title="Comment on Post 1 (Standard)">{{post.comment_count}} Comment{{post.comment_count|pluralize}}</a>
+                {% endif %}
+            </span>
+            {% endif %}
+        </div>
+    </header>
+    <div class="entry-content">
+        {{post|wpkit_formatted_part:"leader"}}
+        {% if post.has_more %}
+        <p>
+            <a href="{{post.url}}#more-{{post.id}}" class="more-link">Continue reading <span class="screen-reader-text">{{post.title}}</span> <span class="meta-nav">→</span></a>
+        </p>
+        {% endif %}
+    </div>
+    {% if post.tags %}
+    <footer class="entry-meta">
+        <span class="tag-links">{% for tag in post.tags %}<a href="{{tag.url}}" rel="tag">{{tag.term.name}}</a><!--{% if not forloop.last %}, {% endif %}-->{% endfor %}</span>
+    </footer>
+    {% endif %}
+</article>
+{% endfor %}

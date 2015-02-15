@@ -1,0 +1,27 @@
+{% extends 'wpkit/base.html' %}
+{% load wpkit_extras %}
+{% load wpkit_content %}
+
+{% block body_classes %}archive date masthead-fixed list-view full-width customize-support{% endblock %}
+
+{% block content %}
+
+<header class="page-header">
+    <h1 class="page-title">
+        {% if monthly %}
+        Monthly Archives: {{archive_date|date:"F Y"}}
+        {% else %}
+        Yearly Archives: {{archive_date.year}}
+        {% endif %}
+    </h1>
+</header>
+
+{% include 'wpkit/fragments/posts_list.html' %}
+
+{% if monthly %}
+{% wpkit_list_pagination 'wpkit_archive' year=archive_date.year month=archive_date.month %}
+{% else %}
+{% wpkit_list_pagination 'wpkit_archive' year=archive_date.year %}
+{% endif %}
+
+{% endblock %}

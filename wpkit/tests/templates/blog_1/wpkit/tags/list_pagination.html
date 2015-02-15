@@ -1,0 +1,14 @@
+{% if page.has_other_pages %}
+<nav class="navigation paging-navigation" role="navigation">
+    <h1 class="screen-reader-text">Posts navigation</h1>
+    <div class="pagination loop-pagination">
+        {% if page.has_previous %}
+        <a class="prev page-numbers" href="{{previous_url}}">← Previous</a>
+        {% endif %}
+        <span class="page-numbers current">{{page.number}}</span>
+        {% if page.has_next %}
+        <a class="next page-numbers" href="{{next_url}}">Next →</a>
+        {% endif %}
+    </div>
+</nav>
+{% endif %}

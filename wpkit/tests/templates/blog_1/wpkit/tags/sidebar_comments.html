@@ -1,0 +1,18 @@
+<aside id="recent-comments-2" class="widget widget_recent_entries">
+    <h1 class="widget-title">Recent Comments</h1>
+    <ul>
+        {% for comment in comments %}
+        <li class="recentcomments">
+            {% if comment.author_url %}
+            <span class="comment-author-link">
+                <a href="{{comment.author_url}}" rel="external nofollow" class="url">{{comment.author}}</a>
+            </span>
+            {% else %}
+            {{comment.author}}
+            {% endif %}
+            on
+            <a href="{{comment.post.url}}#comment-{{comment.id}}">{{comment.post.title}}</a>
+        </li>
+        {% endfor %}
+    </ul>
+</aside>

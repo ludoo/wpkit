@@ -1,0 +1,11 @@
+{% extends 'wpkit/base.html' %}
+{% load wpkit_extras %}
+{% load wpkit_content %}
+
+{% block content %}
+
+{% include 'wpkit/fragments/posts_list.html' %}
+
+{% wpkit_list_pagination 'wpkit_index' %}
+
+{% endblock %}

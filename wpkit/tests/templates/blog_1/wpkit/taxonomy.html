@@ -1,0 +1,19 @@
+{% extends 'wpkit/base.html' %}
+{% load wpkit_extras %}
+{% load wpkit_content %}
+
+{% block body_classes %}archive category category-category-1 category-2 masthead-fixed list-view full-width{% endblock %}
+
+{% block content %}
+
+<header class="page-header">
+    <h1 class="page-title">
+        {{taxonomy.taxonomy|title}} Archives: {{taxonomy.term.name}}
+    </h1>
+</header>
+
+{% include 'wpkit/fragments/posts_list.html' %}
+
+{% wpkit_list_pagination 'wpkit_taxonomy' taxonomy=taxonomy.taxonomy slug=taxonomy.term.slug %}
+
+{% endblock %}

@@ -1,0 +1,8 @@
+<aside id="categories-2" class="widget widget_categories">
+    <h1 class="widget-title">Categories</h1>
+    <ul>
+        {% for category in categories %}
+        <li><a href="{% url 'wpkit_category' slug=category.term.slug %}">{{category.term.name}}</a></li>
+        {% endfor %}
+    </ul>
+</aside>

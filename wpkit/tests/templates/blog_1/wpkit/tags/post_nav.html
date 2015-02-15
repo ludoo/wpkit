@@ -1,0 +1,13 @@
+{% if previous or next %}
+<nav class="navigation post-navigation" role="navigation">
+    <h1 class="screen-reader-text">Post navigation</h1>
+    <div class="nav-links">
+        {% if previous %}
+        <a href="{{previous.url}}" rel="prev"><span class="meta-nav">Previous Post</span>{{previous.title}}</a>
+        {% endif %}
+        {% if next %}
+        <a href="{{next.url}}" rel="next"><span class="meta-nav">Next Post</span>{{next.title}}</a>
+        {% endif %}
+    </div><!-- .nav-links -->
+</nav>
+{% endif %}
