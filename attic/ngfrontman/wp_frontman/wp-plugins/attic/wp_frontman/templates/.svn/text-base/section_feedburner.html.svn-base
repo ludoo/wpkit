@@ -1,0 +1,42 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<form method="post">
+    <p>
+        <input type="checkbox" name="enabled" id="enabled"{% if options.feedburner.enabled %} checked="checked"{% endif %} />
+        <label for="enabled">Enable feedburner redirection for feeds</label>
+    </p>
+    <p>
+        <label for="url">Feedburner feed URL for posts</label>
+        <br />
+        <input type="text" name="url" id="url" style="width: 320px;" value="{{options.feedburner.url}}" />
+        <br />
+        <small style="font-size: italic;">You can point feedburner to <a href="{{section_vars.home}}feed_for_feedburner.xml">{{section_vars.home}}feed_for_feedburner.xml</a>, or use the standard WP feed URLs</small>
+    </p>
+    <!-- options for WP redirection compatibility, not implemented in the new plugin -->
+    <!--
+    <p>
+        <label for="url_requests">Local posts feed URLs to redirect to Feedburner</label>
+        <br />
+        <textarea name="url_requests" id="url_requests" rows="5" style="width: 320px;">{{options.feedburner.url_requests}}</textarea>
+        <br />
+        <small style="font-style: italic;">One URL per line, omitting leading slashes</small>
+    </p>
+    <p>
+        <label for="comments_url">Feedburner feed URL for comments</label>
+        <br />
+        <input type="text" name="comments_url" id="comments_url" style="width: 320px;" value="{{options.feedburner.comments_url}}" />
+    </p>
+    <p>
+        <label for="comments_url_requests">Local comments feed URLs to redirect to Feedburner</label>
+        <br />
+        <textarea rows="3" name="comments_url_requests" id="comments_url_requests" style="width: 320px;">{{options.feedburner.comments_url_requests}}</textarea>
+        <br />
+        <small style="font-style: italic;">One URL per line, omitting leading slashes</small>
+    </p>
+    -->
+    <p><input type="submit" class="button-primary" name="submit" value="Save"></p>
+</form>
+
+{% endblock %}

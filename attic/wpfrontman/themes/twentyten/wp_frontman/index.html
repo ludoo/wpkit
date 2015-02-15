@@ -1,0 +1,17 @@
+{% extends 'wp_frontman/base.html' %}
+{% load wpf_sb_tags %}
+
+{% block blogtitle %}{{block.super}}{% if page > 1 %} | Page {{page}}{% endif %}{% endblock %}
+
+{% block content %}
+<div id="content" role="main">
+{% include 'wp_frontman/fragments/posts_list_index.html' %}
+</div>
+{% endblock %}
+
+{% block sb_widgets %}
+{% sb_recent_posts 5 1 %}
+{% sb_recent_comments %}
+{% sb_archives_month %}
+{% sb_categories %}
+{% endblock %}

@@ -1,0 +1,118 @@
+Blog options
+============
+
+* ``WPLANG blog`` option for multiblog
+
+* ``wp_[blog_id]_capabilities`` for user capabilities, defaults to site-wide capabilities
+
+* define a cache key format and send a signal from the WP plugin to the cache engine
+  to notify it a blog's options need to be refreshed
+
+Managers
+========
+
+Extend ``BasePostManager`` in each blog adding methods for each post type
+instead of the static 'posts' and 'pages' ones.
+
+
+Taxonomies
+==========
+
+Since WP taxonomies can be tied to different models (objects in WP-speak), and
+the only place where this information is stored is in the ``$wp_taxonomies``
+global variable inside WP (nice design, BTW), we need three levels of taxonomy
+models.
+
+Global taxonomy
+---------------
+
+A ``Taxonomy`` model that encompasses all taxonomies in the ``wp_term_taxonomy``
+table, with
+
+* a registry of which base taxonomies are defined for each model, eg ::
+
+    Taxonomy.wp_base_taxonomy_for_models = dict(Post=PostTaxonomy, Link=LinkTaxonomy)
+
+  so that each model-specific taxonomy model can filter by the taxonomy types
+  actually tied to its objects, and use the correct base model to define its
+  specialized taxonomies
+
+* a registry of which specialized taxonomy model to use for each taxonomy type, eg ::
+
+    Taxonomy.wp_taxonomy_for_type = dict(category=Category, post_tag=PostTag)
+
+* an overridden ``__new__`` method that returns an instance of the correct model
+  based on the value of the ``taxonomy`` field, eg ::
+
+    t = Taxonomy.objects.filter(taxonomy='category')[0]
+    assert(t.__class__.__name__ == 'Category')
+
+
+Model specific global taxonomies
+--------------------------------
+
+A ``[model name]Taxonomy`` model for each object type found in ``$wp_taxonomies``
+taking care to group all post types together based on ``$wp_post_types``.
+
+Model specific global taxonomies will have
+
+* a default manager that filters by default the ``taxonomy`` field on
+  the actual taxonomies defined in ``$wp_taxonomies`` for the relevant
+  object types (``$wp_post_types`` for ``Post``, ``link`` for ``Link``, etc.)
+
+* an overridden ``__new__`` method that queries ``Taxonomy.wp_taxonomy_for_type``
+  and returns returns an instance of the correct model based on the value of
+  the ``taxonomy`` field, eg ::
+
+    t = Taxonomy.objects.filter(taxonomy='category')[0]
+    assert(t.__class__.__name__ == 'Category')
+
+* a relationship to the object model defined as an m2m field named ``wp_taxonomy``
+  in the object model through a custom ``[model name]RelTaxonomy`` model, with
+  a default manager that filters on the correct taxonomy types
+
+
+Individual taxonomies
+---------------------
+
+Individual ``[model name][taxonomy name]`` taxonomies for each object
+type / taxonomy type combination.
+
+These taxonomies will be tied to the object model with a relationship defined as
+an m2m field named ``wp_[taxonomy name]`` in the object model, through
+a custom ``[model name]Rel[taxonomy name]`` model, with a default manager
+that filters on the correct taxonomy types, and object types for posts.
+
+
+Post and taxonomy standard usage
+================================
+
+* list of posts ::
+
+    qs = blog.models.Post.objects.select_related('author')
+    qs = blog.models.BasePost.objects.filter(post_type='post').select_related('author')
+
+* list of posts with cached taxonomy with a single query ::
+
+    post_list = blog.models.Post.fetch_taxonomy(qs)
+    post_list = blog.models.BasePost.fetch_taxonomy(qs)
+    taxonomy_list = post_list[0].taxonomy               # cached [cat_1, tag_1, cat_2, tag_n, ...]
+    categories_list = post_list[0].categories           # cached [cat_1, cat_2, cat_n, ...]
+
+* taxonomy for a single post ::
+
+    qs = post.wp_taxonomy.all()                 # live query
+    list = post.taxonomy                        # cached
+    categories_qs = post.wp_categories.all()    # live query
+    categories_list = post.categories           # cached
+
+* taxonomy term ::
+
+    category = blog.models.PostTaxonomy(taxonomy='category', term__slug='spam')
+    category = blog.models.Category(term__slug='spam')
+
+* list of posts for a taxonomy term ::
+
+    qs = category.basepost_set.filter(post_type='post')
+    qs = category.post_set.all()
+

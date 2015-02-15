@@ -1,0 +1,50 @@
+{% load wpf_tags %}
+{% load wpf_post_tags %}
+
+{% if posts %}
+{% for post in posts|prefetch_taxonomies|prefetch_postmeta|prefetch_attachments %}
+{% if post.post_format.term.name == 'post-format-gallery' and post.image_attachments %}
+{% include 'wp_frontman/fragments/post_format_gallery.html' %}
+{% else %}
+<article id="post-{{post.id}}" class="post-{{post.id}} post type-{{post.post_type}} status-{{post.status}} hentry category-toplevel-category">
+	<header class="entry-header">
+		<hgroup>
+			<h2 class="entry-title"><a href="{{post.get_absolute_url}}" title="Permalink to {{post.title|escape}}" rel="bookmark">{{post.title}}</a></h2>
+		</hgroup>
+
+		<div class="entry-meta">
+			<span class="sep">Posted on </span><a href="{{post.get_absolute_url}}" title="{{post.date|time:'G:i'}}" rel="bookmark"><time class="entry-date" datetime="{{post.date|date:'c'}}" pubdate="">{{post.date|date:'F j, Y'}}</time></a><span class="by-author"> <span class="sep"> by </span> <span class="author vcard"><a class="url fn n" href="{{post.author.get_absolute_url}}" title="View all posts by {{post.author.nickname}}" rel="author">{{post.author.nickname}}</a></span></span>
+        </div>
+        {% if post.comment_count %}
+        <div class="comments-link">
+            <a href="{{post.get_absolute_url}}#comments" title="Comment on {{post.title|escape}}">{{post.comment_count}}</a>
+        </div>
+        {% endif %}
+	</header>
+    <div class="entry-content">
+        {{post|summary_with_more}}
+    </div>
+    <footer class="entry-meta">
+        {% if post.categories %}
+        <span class="cat-links">
+			<span class="entry-utility-prep entry-utility-prep-cat-links">Posted in</span>
+            {% for category in post.categories %}
+            <a href="{{category.get_absolute_url}}" title="View all posts in {{category.term.name|escape}}" rel="category tag">{{category.term.name}}</a>{% if not forloop.last %},{% endif %}
+            {% endfor %}
+        </span>
+        {% endif %}
+        {% if post.categories %}{% if post.comment_count or post.comment_status == 'open' %}
+        <span class="sep"> | </span>
+        {% endif %}{% endif %}
+        {% if post.comment_count %}
+        <span class="comments-link"><a href="{{post.get_absolute_url}}#comments" title="Comment on {{post.title|escape}}"><b>{{post.comment_count}}</b> Repl{{post.comment_count|pluralize:"y,ies"}}</a></span>
+        {% elif post.comment_status == 'open' %}
+        <span class="comments-link"><a href="{{post.get_absolute_url}}#comments" title="Comment on {{post.title|escape}}"><b>Leave a reply</b></a></span>
+        {% endif %}
+    </footer>
+</article>
+{% endif %}
+{% endfor %}
+{% else %}
+<p>No posts found.</p>
+{% endif %}

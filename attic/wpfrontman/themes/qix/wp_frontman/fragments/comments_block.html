@@ -1,0 +1,13 @@
+<div id="comments">
+{% if post.comment_count %}
+{% include 'wp_frontman/fragments/comments_list.html' %}
+{% endif %}
+
+{% if form and post.comment_status == 'open' %}
+{% if needs_login %}
+{% include 'wp_frontman/fragments/comment_login_form.html' %}
+{% else %}
+{% include 'wp_frontman/fragments/comment_form.html' %}
+{% endif %}
+{% endif %}
+</div>

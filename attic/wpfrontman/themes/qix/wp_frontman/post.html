@@ -1,0 +1,72 @@
+{% extends 'wp_frontman/base.html' %}
+{% load wpf_sb_tags %}
+{% load wpf_tags %}
+
+{% block blogtitle %}{{post.title|safe}} | {% if page > 1 %}Page {{page}} | {% endif %}{{blog.blogname}}{% endblock %}
+
+{% block extrahead %}
+{% if blog.thread_comments %}
+<script type="text/javascript" src="{{blog.includes_url}}js/comment-reply.js?ver=20090102"></script>
+{% endif %}
+{% endblock %}
+
+{% block sb_widgets %}
+{% sb_recent_posts 5 0 post.id %}
+{% sb_recent_comments 5 post.id %}
+{% sb_tagcloud 20 96 144 192 1 %}
+{% include 'wp_frontman/fragments/search_form.html' %}
+{% sb_categories %}
+{% sb_archives_month 1 %}
+{% endblock %}
+
+{% block content %}
+<div id="post-{{post.id}}">
+<h2 class="title middle">
+    <a href="{{post.get_absolute_url}}">{{post.title|wpf_widont}}</a>
+</h2>
+<div class="left meta dotted">
+    <p>
+        {{post.date|date:blog.date_format|lower}}
+    </p>
+    {% ifnotequal post.author.nicename 'ludo' %}
+    <p><em>{{post.author.nicename}}</em></p>
+    {% endifnotequal %}
+    <p>
+        <a href="{{post.get_absolute_url}}#comments">{{post.comment_count}}</a> comment{{post.comment_count|pluralize:"o,i"}}
+    </p>
+    {% if post.tags %}
+    <h3>
+        tag
+    </h3>
+    <ul>
+        {% for tag in post.tags %}
+        <li><a href="{{tag.get_absolute_url}}" title="Post in {{tag.term.name|striptags|escape}}">{{tag.term.name|lower}}</a> &laquo;</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% if post.categories %}
+    <h3>
+        categorie
+    </h3>
+    <ul>
+        {% for category in post.categories %}
+        <li><a href="{{category.get_absolute_url}}" title="Post in {{category.term.name|striptags|escape}}">{{category.term.name|lower}}</a> &laquo;</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    
+</div>
+<div class="summary middle">
+    {{post.content_parsed|safe}}
+</div>
+
+{% if post.previous or post.next %}
+<div id="paginator" class="middle">
+    <div class="previous" title="{{post.previous.title|striptags|escape}}">{% if post.previous %}<a href="{{post.previous.get_absolute_url}}" rel="prev" title="{{post.previous.title|striptags|escape}}">⇠</a> {{post.previous.title|truncatewords_html:5}}{% endif %}</div>
+    <div class="next" title="{{post.next.title|striptags|escape}}">{% if post.next %}{{post.next.title|truncatewords_html:5}} <a href="{{post.next.get_absolute_url}}" rel="next" title="{{post.next.title|striptags|escape}}">⇢</a>{% endif %}</div>
+</div>
+{% endif %}
+
+{% include 'wp_frontman/fragments/comments_block.html' %}
+</div>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% load wpf_tags %}
+<aside id="archives" class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <ul>
+        {% wpf_rendertree categories %}
+        <li>
+            <a href="{{node.get_absolute_url}}" title="{{node.term.name|escape}}">{{node.term.name}}</a>
+            {% if not is_leaf %}
+            <ul>
+                {{children}}
+            </ul>
+            {% endif %}
+        </li>
+        {% wpf_endrendertree %}
+    </ul>
+</aside>

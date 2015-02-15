@@ -1,0 +1,9 @@
+{% load wpf_tags %}
+{% if comments %}
+<h3>ultimi commenti</h3>
+<ul>
+    {% for c in comments %}
+    <li>{{c.author|lower}}, <a href="{{c.get_absolute_url}}">{{c.base_post.title|wpf_widont}}</a>&nbsp;&laquo;</li>
+    {% endfor %}
+</ul>
+{% endif %}

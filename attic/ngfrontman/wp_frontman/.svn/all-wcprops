@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 37
+/!svn/ver/2843/ngfrontman/wp_frontman
+END
+models.py
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/!svn/ver/1984/ngfrontman/wp_frontman/models.py
+END
+context_processors.py
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/!svn/ver/1423/ngfrontman/wp_frontman/context_processors.py
+END
+taxonomy_sql_compiler.py
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/!svn/ver/1101/ngfrontman/wp_frontman/taxonomy_sql_compiler.py
+END
+wp_helpers.py
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/!svn/ver/2482/ngfrontman/wp_frontman/wp_helpers.py
+END
+wp_models.py
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/!svn/ver/2843/ngfrontman/wp_frontman/wp_models.py
+END
+middleware.py
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/!svn/ver/1185/ngfrontman/wp_frontman/middleware.py
+END
+views.py
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/!svn/ver/2843/ngfrontman/wp_frontman/views.py
+END
+managers.py
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/!svn/ver/2832/ngfrontman/wp_frontman/managers.py
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/!svn/ver/1421/ngfrontman/wp_frontman/__init__.py
+END
+tests.py
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/!svn/ver/1025/ngfrontman/wp_frontman/tests.py
+END

@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<p>
+    The WP Frontman Preformatter is used to store a pre-rendered copy of each post content
+    in the database, alongside the raw content. Storing a pre-rendered copy lightens the server
+    load when serving content to users, and more importantly allows WP plugins that manipulate
+    posts to work.
+</p>
+<form method="post">
+    <input type="hidden" name="action" value="options" />
+    <table class="form-table">
+        <tbody>
+            <tr valign="top">
+                <th scope="row"><label for="enabled">Enable Preformatting</label></th>
+                <td><input name="enabled" type="checkbox" id="enabled" value="1" {% if options.enabled %}checked="checked" {% endif %}/></td>
+            </tr>
+            <tr valign="top">
+                <th scope="row"><label for="relative_urls">Relativize Internal URLs</label></th>
+                <td><input name="relative_urls" type="checkbox" id="relative_urls" value="1" {% if options.relative_urls %}checked="checked" {% endif %}/></td>
+            </tr>
+        </tbody>
+    </table>
+    <p class="submit"><input type="submit" name="submit" id="submit" class="button-primary" value="Save Changes" /></p>
+</form>
+
+<h3>Batch Preformatting</h3>
+<p>
+    Preformatting works for new posts, formatting and storing content
+    for each post as it saved by WP.
+</p>
+{% if options.batch_done %}
+<p>
+    Pre-existing content for this blog has already been preformatted. You can
+    regenerate it by using the button below.
+</p>
+<p><input type="submit" class="button-primary" id="wpf_preformatter_batch_start" name="wpf_preformatter_batch_start" value="Regenerate Content"></p>
+{% else %}
+<p>
+    If you have installed WP Frontman on a blog with pre-existing
+    content, you can have preformatted content stored for old posts by
+    using the button below.
+</p>
+<p><input type="submit" class="button-primary" id="wpf_preformatter_batch_start" name="wpf_preformatter_batch_start" value="Preformat Content"></p>
+{% endif %}
+<p><em id="wpf_preformatter_batch_start_info"></em></p>
+
+{% endblock %}

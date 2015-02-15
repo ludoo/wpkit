@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% if not curl_loaded %}
+<p><em>The cache system is disabled since the PHP <code>curl</code> extension is not enabled.</em></p>
+{% endif %}
+<form method="post">
+    <input type="hidden" name="action" value="options" />
+    <table class="form-table">
+        <tbody>
+            <tr valign="top">
+                <th scope="row"><label for="enabled">Enable Cache</label></th>
+                <td><input name="enabled" type="checkbox" id="enabled" value="1" {% if options.enabled %}checked="checked" {% endif %}/></td>
+            </tr>
+            <tr valign="top">
+                <th scope="row"><label for="endpoint">Cache Endpoint URL</label></th>
+                <td><input name="endpoint" type="text" id="endpoint" value="{{options.endpoint}}" size="60" /></td>
+            </tr>
+        </tbody>
+    </table>
+    <p class="submit"><input type="submit" name="submit" id="submit" class="button-primary" value="Save Changes" /></p>
+</form>
+
+<h3>Cache Control</h3>
+<p>
+    Cache commands below have a static timestamp which is generated
+    when this page loads, if you get a <em>Timestamp Expired</em> reply
+    from the cache backend reload this page and retry the command.
+</p>
+    
+<h4>Check Cache</h4>
+<p>
+    <input type="submit" class="button-primary" style="width: 240px;" id="wpf_cache_ping" name="wpf_cache_ping" value="Ping Cache Backend" />
+    <span id="wpf_cache_ping_info"></span>
+</p>
+<p>
+    <input type="submit" class="button-primary" style="width: 240px;" id="wpf_cache_query" name="wpf_cache_query" value="Get Last Timestamp" />
+    <span id="wpf_cache_query_info"></span>
+</p>
+
+<h4>Reset Cache</h4>
+<p>
+    Force a reset of all cache timestamps for this blog.
+</p>
+<p><input type="submit" class="button-primary" id="wpf_cache_reset" name="wpf_cache_reset" value="Reset Cache"></p>
+
+{% endblock %}

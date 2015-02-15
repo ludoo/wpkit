@@ -1,0 +1,13 @@
+{% extends 'wp_frontman/base.html' %}
+
+
+{% block blogtitle %}{{category.term.name}} | {{block.super}}{% if page > 1 %} | Page {{page}}{% endif %}{% endblock %}
+
+{% block body_cssclass %}archive category category-{{category.term.slug}}{% endblock %}
+
+{% block content %}
+<div id="content" role="main">
+    <h1 class="page-title">Category Archives: <span>{{category.term.name}}</span></h1>
+    {% include 'wp_frontman/fragments/posts_list.html' %}
+</div>
+{% endblock %}

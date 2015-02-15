@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<p>
+    This module allows you to control how the favicon.ico and robots.txt files are handled.
+</p>
+<form method="post">
+<table class="form-table">
+    <tbody>
+        <tr valign="top">
+            <th scope="row">Favourite Icon Handling</th>
+            <td>
+                <fieldset>
+                    <legend class="screen-reader-text"><span>Favourite Icon</span></legend>
+                    <label title="Handled by the web server">
+                        <input type="radio" name="favicon_handling" value="0" {% if not options.favicon_handling %}checked="checked"{% endif %} />
+                        <span>Requests for <code>/favicon.ico</code> are handled by the web server, requests passed to WP Frontman return a 404</span>
+                    </label>
+                    <br />
+                    <label title="Handled by WP Frontman">
+                        <input type="radio" name="favicon_handling" value="1" {% if options.favicon_handling %}checked="checked"{% endif %} />
+                        <span>Requests for <code>/favicon.ico</code> are aliased to this file:</span>
+                        <br />
+                        <input type="text" name="favicon_file" value="{{options.favicon_file}}" size="75" />
+                    </label>
+                </fieldset>
+            </td>
+        </tr>
+        <tr valign="top">
+            <th scope="row">Robot Exclusion Handling</th>
+            <td>
+                <fieldset>
+                    <legend class="screen-reader-text"><span>Robot Exclusion File</span></legend>
+                    <label title="Handled by the web server">
+                        <input type="radio" name="robots_handling" value="0" {% if not options.robots_handling %}checked="checked"{% endif %} />
+                        <span>Requests for <code>/robots.txt</code> are handled by the web server, requests passed to WP Frontman return a 404</span>
+                    </label>
+                    <br />
+                    <label title="Handled by WP Frontman">
+                        <input type="radio" name="robots_handling" value="1" {% if options.robots_handling %}checked="checked"{% endif %} />
+                        <span>Requests for <code>/robots.txt</code> are aliased to this file:</span>
+                        <br />
+                        <input type="text" name="robots_file" value="{{options.robots_file}}" size="75" />
+                    </label>
+                </fieldset>
+            </td>
+        </tr>
+    </tbody>
+</table>
+    <input type="hidden" name="action" value="favicon" />
+    <p class="submit"><input type="submit" name="submit" id="submit" class="button-primary" value="Save" /></p>
+</form>
+
+{% endblock %}

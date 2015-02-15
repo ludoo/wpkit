@@ -1,0 +1,5 @@
+{% extends 'wp_frontman/base.html' %}
+{% load wpf_sidebar_tags %}
+
+{% block page_title %}{{block.super}}{% if page > 1 %} | Page {{page}}{% endif %}{% endblock %}
+

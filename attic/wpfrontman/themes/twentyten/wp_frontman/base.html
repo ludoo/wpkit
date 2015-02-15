@@ -1,0 +1,106 @@
+{% load wpf_sb_tags %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+    <head profile="http://gmpg.org/xfn/11">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        {% if blog.theme_url %}
+        <link rel="stylesheet" type="text/css" href="{{blog.theme_url}}style.css" media="screen" />
+        {% else %}
+        <link rel="stylesheet" type="text/css" href="{{MEDIA_URL}}style.css" media="screen" />
+        {% endif %}
+        <link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="{% url wpf_feed %}" />
+        <title>{% block blogtitle %}{{blog.blogname}}{% if blog.blogdescription %} | {{blog.blogdescription}}{% endif %}{% endblock %}</title>
+        <script type="text/javascript">//<![CDATA[
+            function search_get() {
+                var q = document.getElementById('q');
+                var f = document.getElementById('searchform');
+                if (!q)
+                    return;
+                if (!q.value) {
+                    q.className = 'error';
+                    return false;
+                }
+                location.href = f.action + encodeURIComponent(q.value) + '/';
+                return false;
+            }
+        //]]></script>
+        {% block extrahead %}{% endblock %}
+    </head>
+    <body class="{% block body_cssclass %}home blog{% endblock %}">
+        <div id="wrapper" class="hfeed">
+            <div id="header">
+                <div id="masthead">
+                    <div id="branding" role="banner">
+                        <h1 id="site-title"><span><a href="{% url wpf_index %}" title="{{blog.blogname|striptags|escape}}">{{blog.blogname}}</a></span></h1>
+                        <div id="site-description">{{blog.blogdescription}}</div>
+                        <img src="{{blog.theme_url}}images/headers/path.jpg" width="940" height="198" alt="" />
+                    </div>
+                    <div id="access" role="navigation">
+                        <div class="skip-link screen-reader-text"><a href="#content" title="Skip to content">Skip to content</a></div>
+                        <div class="menu">
+                            <ul>
+                                <li class="{% if not request.path or request.path == '/' %}current_page_item{% endif %}"><a href="/" title="Home">Home</a></li>
+                                {% sb_pages %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- end header -->
+            <div id="main">
+                <div id="container">
+                    {% block content %}
+                    <div id="content" role="main">
+                    </div>
+                    {% endblock %}
+                </div><!-- end container -->
+                {% block primary %}
+                <div id="primary" class="widget-area" role="complementary">
+                    <ul class="xoxo">
+                        {% block sidebar %}
+                        {% block sb_searchform %}
+                        <li id="search-2" class="widget-container widget_search">
+                            <form role="search" method="get" id="searchform" action="{% url wpf_search %}" onsubmit="return search_get();">
+                                <div>
+                                    <label class="screen-reader-text" for="q">Search for:</label>
+                                    <input type="text" value="{{q}}" name="q" id="q" />
+                                    <input type="submit" id="searchsubmit" value="Search" />
+                                </div>
+                            </form>
+                        </li>
+                        {% endblock %}
+                        {% block sb_widgets %}
+                        {% sb_recent_posts %}
+                        {% sb_recent_comments %}
+                        {% sb_archives_month %}
+                        {% sb_categories %}
+                        {% endblock %}
+                        {% block sb_meta %}
+                        <li id="meta-2" class="widget-container widget_meta">
+                            <h3 class="widget-title">Meta</h3>
+                            <ul>
+                                <li><a href="{% url wpf_feed %}" title="Syndicate this site using RSS 2.0">Entries <abbr title="Really Simple Syndication">RSS</abbr></a></li>
+                                <li><a href="{% url wpf_feed_comments %}" title="The latest comments to all posts in RSS">Comments <abbr title="Really Simple Syndication">RSS</abbr></a></li>
+                            </ul>
+                        </li>
+                        {% endblock %}
+                        {% endblock %}
+                    </ul>
+                </div><!-- end primary -->
+                {% endblock %}
+            </div><!-- end main -->
+            <div id="footer" role="contentinfo">
+                <div id="colophon">
+                    <div id="site-info" style="width: 620px;">
+                        <a href="{% url wpf_index %}" title="{{blog.blogname|striptags|escape}}" rel="home">{{blog.blogname}}</a>
+                    </div>
+                    <div id="site-generator" style="width: 300px;">
+                        Proudly powered by 
+                        <a href="http://wpfrontman.com" style="background-image: none; padding-left: 0;" rel="generator">WP Frontman</a>
+                        +
+                        <a href="http://wordpress.org/" title="Semantic Personal Publishing Platform">WordPress</a>.
+                    </div>
+                </div>
+            </div><!-- end footer -->
+        </div><!-- end wrapper -->
+    </body>
+</html>

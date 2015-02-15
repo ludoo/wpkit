@@ -1,0 +1,44 @@
+{% extends 'wp_frontman/base.html' %}
+
+{% block blogtitle %}New User Registration | {{block.super}}{% endblock %}
+
+{% block extrahead %}
+<style type="text/css">
+		.mu_register { width: 90%; margin:0 auto; }
+		.mu_register form { margin-top: 2em; }
+		.mu_register .error { font-weight:700; padding:10px; color:#333333; background:#FFEBE8; border:1px solid #CC0000; }
+		.mu_register input[type="submit"],
+        .mu_register #blog_title,
+		.mu_register #id_email,
+		.mu_register #blogname,
+		.mu_register #id_login { width:100%; font-size: 24px; margin:5px 0; }
+		.mu_register .prefix_address,
+		.mu_register .suffix_address {font-size: 18px;display:inline; }
+		.mu_register label { font-weight:700; font-size:15px; display:block; margin:10px 0; }
+		.mu_register label.checkbox { display:inline; }
+		.mu_register .mu_alert { font-weight:700; padding:10px; color:#333333; background:#ffffe0; border:1px solid #e6db55; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div id="content" class="widecolumn">
+    <div class="mu_register">
+        <h2>Get your own {{blog.site.site_name}} account in seconds</h2>
+        <form id="setupform" method="post" action="">
+            {% csrf_token %}
+            {% for field in form %}
+            <label for="id_{{field.name}}">{{field.label}}</label>
+            {% if field.errors %}
+            <p class="error">{% for error in field.errors %}{{error}}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+            {% endif %}
+            {{field}}
+            <br />
+            {{field.help_text}}
+            {% endfor %}
+            <p></p>
+            <p class="submit"><input type="submit" name="submit" class="submit" value="Next" /></p>
+        </form>
+	</div>
+</div>
+{% endblock %}
+

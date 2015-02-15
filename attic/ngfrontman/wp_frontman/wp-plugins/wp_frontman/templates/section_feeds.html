@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<p>
+    This module allows you to set dynamic redirections for your blog's feed URLs,
+    eg to Feedburner.
+</p>
+<form method="post">
+    <input type="hidden" name="action" value="options" />
+    <table class="form-table">
+        <tbody>
+            <tr valign="top">
+                <th scope="row"><label for="enabled">Enable Feed redirection</label></th>
+                <td><input name="enabled" type="checkbox" id="enabled" value="1" {% if options.enabled %}checked="checked" {% endif %}/></td>
+            </tr>
+            <tr valign="top">
+                <th scope="row"><label for="target">Redirect URL for entries feed</label></th>
+                <td><input name="target" type="text" id="target" size="50" value="{% if options.target %}{{options.target}}{% else %}{% endif %}" /></td>
+            </tr>
+            <tr valign="top">
+                <th scope="row"><label for="comments_target">Redirect URL for comments feed</label></th>
+                <td><input name="comments_target" type="text" id="comments_target" size="50" value="{% if options.comments_target %}{{options.comments_target}}{% else %}{% endif %}" /></td>
+            </tr>
+            <tr valign="top">
+                <th scope="row"><label for="paths">Additional entries feed paths to redirect, one per line</label></th>
+                <td><textarea name="paths" id="paths" cols="45" rows="3">{% if options.paths %}{{options.paths}}{% else %}{% endif %}</textarea></td>
+            </tr>
+            <tr valign="top">
+                <th scope="row"><label for="comments_paths">Additional comments feed paths to redirect, one per line</label></th>
+                <td><textarea name="comments_paths" id="comments_paths" cols="45" rows="3">{% if options.comments_paths %}{{options.comments_paths}}{% else %}{% endif %}</textarea></td>
+            </tr>
+        </tbody>
+    </table>
+    <p class="submit"><input type="submit" name="submit" id="submit" class="button-primary" value="Save Changes" /></p>
+</form>
+{% endblock %}

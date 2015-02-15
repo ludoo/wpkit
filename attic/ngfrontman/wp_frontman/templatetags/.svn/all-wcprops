@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/!svn/ver/2830/ngfrontman/wp_frontman/templatetags
+END
+wpf_sidebar_tags.py
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/!svn/ver/1527/ngfrontman/wp_frontman/templatetags/wpf_sidebar_tags.py
+END
+wpf_tags.py
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/!svn/ver/1538/ngfrontman/wp_frontman/templatetags/wpf_tags.py
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/!svn/ver/1475/ngfrontman/wp_frontman/templatetags/__init__.py
+END
+wpf_post_tags.py
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/!svn/ver/2830/ngfrontman/wp_frontman/templatetags/wpf_post_tags.py
+END

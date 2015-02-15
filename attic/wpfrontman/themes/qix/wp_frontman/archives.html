@@ -1,0 +1,18 @@
+{% extends "wp_frontman/base.html" %}
+{% load wpf_sb_tags %}
+
+{% block blogtitle %}{{dt_start|date:"F"}} | {{dt_start|date:"Y"}} | {{block.super}}{% if page > 1 %} | Pagina {{page}}{% endif %}{% endblock %}
+
+{% block header_title %}{{block.super}}<br /><em class="archive">{{dt_start|date:"F Y"}}</em>{% endblock %}
+
+{% block content %}
+{% include 'wp_frontman/fragments/posts_list.html' %}
+{% endblock %}
+
+{% block sb_widgets %}
+{% sb_recent_posts 5 1 0 %}
+{% sb_recent_comments %}
+{% sb_tagcloud 20 96 144 192 1 %}
+{% include 'wp_frontman/fragments/search_form.html' %}
+{% sb_archives_month 1 %}
+{% endblock %}

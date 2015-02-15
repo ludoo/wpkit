@@ -1,0 +1,10 @@
+<li id="archives-2" class="widget-container widget_archive">
+    <h3 class="widget-title">Archives</h3>
+    <ul>
+        {% for archive in archives %}
+        <li>
+            <a href="{{archive.get_absolute_url}}" title="Read all posts for {{archive.dt|date:'F Y'}}">{{archive.dt|date:"F Y"}}</a> <span style="font-size: 8px; color: #999; font-style: italic;">{{archive.count}}</span>
+        </li>
+        {% endfor %}
+    </ul>
+</li>

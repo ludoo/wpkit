@@ -1,0 +1,17 @@
+{% extends "wp_frontman/base.html" %}
+{% load wpf_sb_tags %}
+
+{% block blogtitle %}{{block.super}}{% if page > 1 %} | Page {{page}}{% endif %}{% endblock %}
+
+{% block content %}
+{% include 'wp_frontman/fragments/posts_list.html' %}
+{% endblock %}
+
+{% block sb_widgets %}
+{% sb_recent_posts 5 1 0 "seconda pagina" %}
+{% sb_recent_comments %}
+{% sb_tagcloud 20 96 144 192 1 %}
+{% include 'wp_frontman/fragments/search_form.html' %}
+{% sb_categories %}
+{% sb_archives_month 1 %}
+{% endblock %}

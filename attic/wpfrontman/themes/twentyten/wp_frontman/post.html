@@ -1,0 +1,46 @@
+{% extends 'wp_frontman/base.html' %}
+{% load wpf_sb_tags %}
+
+{% block blogtitle %}{% if page > 1 %}Page {{page}} | {% endif %}{{post.title|safe}} | {{blog.blogname}}{% endblock %}
+
+{% block extrahead %}
+{% if blog.thread_comments %}
+<script type="text/javascript" src="{{blog.includes_url}}js/comment-reply.js?ver=20090102"></script>
+{% endif %}
+{% endblock %}
+
+{% block body_cssclass %}single single-post postid-{{post.id}}{% endblock %}
+
+{% block sb_widgets %}
+{% sb_recent_posts 5 0 post.id %}
+{% sb_recent_comments 5 post.id %}
+{% sb_archives_month %}
+{% sb_categories %}
+{% endblock %}
+
+{% block content %}
+<div id="content" role="main">
+    <div id="nav-above" class="navigation">
+        {% include 'wp_frontman/fragments/post_navigation.html' %}
+    </div>
+    <div id="post-{{post.id}}" class="post-{{post.id}} post type-post hentry{% for t in post.taxonomy %} {{t.taxonomy_slug}}-{{t.term.slug}}{% endfor %}">
+        <h1 class="entry-title">{{post.title|safe}}</h1>
+        <div class="entry-meta">
+            <span class="meta-prep meta-prep-author">Posted on</span>
+            <a href="{{post.get_absolute_url}}" title="{{post.date|time:blog.time_format}}" rel="bookmark"><span class="entry-date">{{post.date|date:blog.date_format}}</span></a>
+            <span class="meta-sep">by</span> <span class="author vcard"><a class="url fn n" href="{{post.author.get_absolute_url}}" title="View all posts by {{post.author.nicename}}">{{post.author.nicename}}</a></span>
+        </div>
+        <div class="entry-content">
+            {{post.content_parsed|safe}}
+        </div>
+        <div class="entry-utility">
+            {% if post.categories %}This entry was posted in {% for category in post.categories %}<a href="{{category.get_absolute_url}}" title="View all posts in {{category.term.name|striptags|escape}}" rel="category tag">{{category.term.name}}</a>{% if not forloop.last %}, {% endif %}{% endfor %}{% endif %}{% if post.tags %} and tagged {% for tag in post.tags %}<a href="{{tag.get_absolute_url}}" title="Read all posts in {{tag.term.name|striptags|escape}}" rel="tag">{{tag.term.name}}</a>{% if not forloop.last %}, {% endif %}{% endfor %}{% endif %}.
+            Bookmark the <a href="{{post.get_absolute_url}}" title="Permalink to {{post.title}}" rel="bookmark">permalink</a>.
+        </div>
+    </div>
+    <div id="nav-below" class="navigation">
+        {% include 'wp_frontman/fragments/post_navigation.html' %}
+    </div>
+    {% include 'wp_frontman/fragments/comments_block.html' %}
+</div>
+{% endblock %}

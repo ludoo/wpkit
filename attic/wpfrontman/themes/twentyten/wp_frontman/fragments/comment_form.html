@@ -1,0 +1,49 @@
+<style type="text/css">
+    #reply-title .error {
+        color: #d99999;
+        font-size: 11px;
+        font-style: italic;
+        font-weight: normal;
+    }
+</style>
+<div id="respond">
+    <h3 id="reply-title">
+        Leave a Reply
+        {% if comment_error %}<span class="required">{{comment_error}}</small>{% endif %}
+        {% if blog.thread_comments %}<small><a rel="nofollow" id="cancel-comment-reply-link" href="{{post.get_absolute_url}}#respond" style="display: none; ">Cancel reply</a></small>{% endif %}
+    </h3>
+    <form method="post" id="commentform" action="#respond">
+        {% csrf_token %}
+        {% if user_login %}
+        <p class="logged-in-as">Logged in as {{user_login}}. <a href="{% url wpf_user_logout %}?redirect_to={{request.path|urlencode}}" title="Log out of this account">Log out?</a>
+        {% else %}
+        <p class="comment-notes">Your email address will not be published.
+        {% endif %}
+        Required fields are marked <span class="required">*</span></p>
+        {% for field in form %}
+        {% if field.name != 'remember_info'  and field.name != 'comment_parent' %}
+        <p class="comment-form-{{field.name}} {{field.css_classes}}">
+            <label for="id_{{field.name}}">{% if field.name != '_content' %}{{field.label}}{% else %}Comment{% endif %}</label>
+            {% if field.errors %}
+            <span class="required">{% for error in field.errors %}{{error|lower}}{% if not forloop.last %}, {% endif %}{% endfor %}</span>
+            {% else %}
+            {% if field.field.required %}<span class="required">*</span>{% endif %}
+            {% endif %}
+            {{field}}
+        </p>
+        {% endif %}
+        {% endfor %}
+        <p class="form-allowed-tags">
+            You may use these <abbr title="HyperText Markup Language">HTML</abbr> tags and attributes:
+            <code>&lt;a href="" title=""&gt; &lt;abbr title=""&gt; &lt;acronym title=""&gt; &lt;b&gt; &lt;blockquote cite=""&gt; &lt;cite&gt; &lt;code&gt; &lt;del datetime=""&gt; &lt;em&gt; &lt;i&gt; &lt;q cite=""&gt; &lt;strike&gt; &lt;strong&gt;</code>
+        </p>
+        <p class="form-submit">
+            <input name="submit" type="submit" id="submit" value="Post Comment" />
+            <input type="hidden" name="comment_parent" id="comment_parent" />
+            {{form.remember_info}}
+            <label for="id_remember_info"><small>Remember me</small></label>
+        </p>
+    </form>
+    <!-- dummy field for WP threade comments reply form compatibility -->
+    <input type="hidden" name="comment_post_ID" />
+</div>

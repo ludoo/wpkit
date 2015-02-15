@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<p>
+    This module allows you to set image options independently from the WP theme.
+</p>
+<form method="post">
+    <input type="hidden" name="action" value="options" />
+    <table class="form-table">
+        <tbody>
+            <tr valign="top">
+                <th scope="row"><label for="enabled">Enable Post Thumbnails</label></th>
+                <td><input name="enabled" type="checkbox" id="enabled" value="1" {% if options.enabled %}checked="checked" {% endif %}/></td>
+            </tr>
+        </tbody>
+    </table>
+    <p class="submit"><input type="submit" name="submit" id="submit" class="button-primary" value="Save Changes" /></p>
+</form>
+
+<h4>Add a size{% if message %} <small style="color:#ff3300;font-style:italic;font-weight: normal;">{{message|safe}}</small>{% endif %}</h4>
+<form method="post">
+    <input type="hidden" name="action" value="add_size" />
+    <table>
+        <tr>
+            <td><label for="name">Name</label></td>
+            <td><label for="width">Width</label></td>
+            <td><label for="height">Height</label></td>
+            <td><label for="crop">Crop</label></td>
+        </tr>
+        <tr>
+            <td><input type="text" name="name" id="name" value="{{opts.name|default 'default'}}" /></td>
+            <td>
+                <input type="text" name="width" id="width" value="{{opts.width|default ''}}" style="width: 48px;" />
+            </td>
+            <td>
+                <input type="text" name="height" id="height" value="{{opts.height|default ''}}" style="width: 48px;" />
+            </td>
+            <td>
+                <input type="checkbox" name="crop" id="crop"{% if opts.crop %} checked="checked"{% endif %} />
+            </td>
+        </tr>
+    </table>
+    <p><input type="submit" class="button-primary" name="submit" value="Save"></p>
+</form>
+
+<h4>Sizes</h4>
+{% if not options.sizes %}
+<p>No sizes defined.</p>
+{% else %}
+<table class="widefat" style="width: 600px" cellspacing="0">
+    <thead>
+        <tr>
+            <th scope="col" class="manage-column">Name</th>
+            <th scope="col" class="manage-column" style="text-align: right">Width</th>
+            <th scope="col" class="manage-column" style="text-align: right">Height</th>
+            <th scope="col" class="manage-column" style="text-align: right">Crop</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for name, attrs in options.sizes %}
+        <tr>
+            <td>{{name}}{% if name == 'default' %} <em>(use it as <code>post-thumbnail</code>)</em>{% endif %}</td>
+            <td style="text-align: right">{{attrs.width}}</td>
+            <td style="text-align: right">{{attrs.height}}</td>
+            <td style="text-align: right">{% if attrs.crop %}Yes{% endif %}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>    
+{% endif %}
+
+{% endblock %}

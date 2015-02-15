@@ -1,0 +1,6 @@
+<h3>tag principali</h3>
+<ul id="tagcloud">
+    {% for tag in tags %}
+    <li><a style="color: rgb({{tag.cloud_rgb.0}}, {{tag.cloud_rgb.1}}, {{tag.cloud_rgb.2}});" href="{{tag.get_absolute_url}}">{{tag.term.name|lower}}</a></li>
+    {% endfor %}
+</ul>

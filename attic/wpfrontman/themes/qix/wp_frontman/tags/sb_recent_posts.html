@@ -1,0 +1,9 @@
+{% load wpf_tags %}
+{% if posts %}
+<h3>{% if title %}{{title}}{% else %}ultimi post{% endif %}</h3>
+<ul>
+    {% for post in posts %}
+    <li><a href="{{post.get_absolute_url}}" title="{{post.title|striptags|escape}}">{{post.title|wpf_widont}}</a>&nbsp;&laquo;</li>
+    {% endfor %}
+</ul>
+{% endif %}

@@ -1,0 +1,24 @@
+{% load wpf_tags %}
+<nav id="access" role="navigation">
+    <h3 class="assistive-text">Main menu</h3>
+    <div class="skip-link">
+        <a class="assistive-text" href="#content" title="Skip to primary content">Skip to primary content</a>
+    </div>
+    <div class="skip-link">
+        <a class="assistive-text" href="#secondary" title="Skip to secondary content">Skip to secondary content</a>
+    </div>
+    <div class="{{menu.term.slug}}-menu-container">
+        <ul id="{{menu.term.slug}}-menu" class="menu">
+            {% wpf_rendertree menu_items 0 1 %}
+            <li id="menu-item-{{node.id}}" class="menu-item menu-item-type-{{node.type}} menu-item-object-{{node.type}} menu-item-{{node.id}}">
+                <a href="{{node.url}}">{{node.title}}</a>
+                {% if not is_leaf %}
+                <ul class="sub-menu">
+                    {{children}}
+                </ul>
+                {% endif %}
+            </li>
+            {% wpf_endrendertree %}
+        </ul>
+    </div>
+</nav>

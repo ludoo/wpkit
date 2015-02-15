@@ -1,0 +1,121 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<h4>Enable Custom Taxonomies</h4>
+<form method="post">
+    <p>
+        <input type="checkbox" id="enabled" name="enabled" value="1" {% if options.custom_taxonomies.enabled %} checked="checked"{% endif %} />
+        <label for="enabled">Enable custom taxonomies defined with this plugin.</label>
+    </p>
+    <p><input type="submit" class="button-primary" name="submit" value="Save"></p>
+</form>
+
+<h4>Add a custom taxonomy</h4>
+<form method="post" id="edit_taxonomy">
+    <input type="hidden" name="custom_taxonomy" value="1" />
+    <table>
+        <tr>
+            <th style="text-align: left; padding: 3px;"><label for="name">Taxonomy</label></th>
+            <th style="text-align: left; padding: 3px;"><label for="label">Label</label></th>
+            <th style="text-align: left; padding: 3px;"><label for="hierarchical">Hierarchical</label></th>
+            <th style="text-align: left; padding: 3px;"><label for="hierarchical">Hier. URL</label></th>
+            <th style="text-align: left; padding: 3px;"><label for="public">Admin</label></th>
+            <th style="text-align: left; padding: 3px;"><label for="show_ui">UI</label></th>
+            <th style="text-align: left; padding: 3px;"><label for="update_count_callback">Post Count</label></th>
+            <th style="text-align: left; padding: 3px; white-space: nowrap;"><label for="object_type">Objects</label></th>
+        </tr>
+        <tr>
+            <td valign="top"><input type="text" name="name" id="name" value="{{section_vars.name}}" /></td>
+            <td valign="top"><input type="text" name="label" id="label" value="{{section_vars.label}}" /></td>
+            <td valign="top"><input type="checkbox" name="hierarchical" id="hierarchical"{% if section_vars.hierarchical %} checked="checked"{% endif %} /></td>
+            <td valign="top"><input type="checkbox" name="rewrite_hierarchical" id="hierarchical"{% if section_vars.rewrite_hierarchical %} checked="checked"{% endif %} /></td>
+            <td valign="top"><input type="checkbox" name="public" id="public"{% if section_vars.public %} checked="checked"{% endif %} /></td>
+            <td valign="top"><input type="checkbox" name="show_ui" id="show_ui"{% if section_vars.show_ui %} checked="checked"{% endif %} /></td>
+            <td valign="top"><input type="checkbox" name="update_count" id="update_count"{% if section_vars.update_count %} checked="checked"{% endif %} /></td>
+            <td>
+                {% for obj_type in section_vars.obj_types %}
+                <input type="checkbox" name="object_type" class="object_type" value="{{obj_type}}" /> {{obj_type}}
+                {% if not repeat.last %}<br />{% endif %}
+                {% endfor %}
+            </td>
+        </tr>
+    </table>
+    <p>
+        <input type="submit" class="button-primary" name="submit" value="Save" />
+        {% if section_vars.name %}
+        <input type="submit" id="submit-delete" class="button-primary" name="submit" value="Delete" />
+        {% endif %}
+    </p>
+</form>
+
+<h4>Custom Taxonomies</h4>
+{% if not options.custom_taxonomies.custom_taxonomies %}
+<p>No custom taxonomies defined.</p>
+{% else %}
+<table class="widefat" style="width: 800px" cellspacing="0">
+    <thead>
+        <tr>
+            <th scope="col" class="manage-column">Taxonomy</th>
+            <th scope="col" class="manage-column">Label</th>
+            <th scope="col" class="manage-column" style="text-align: right">Hierarchical</th>
+            <th scope="col" class="manage-column" style="text-align: right; white-space: nowrap;">Hier. URL</th>
+            <th scope="col" class="manage-column" style="text-align: right; white-space: nowrap;">Admin</th>
+            <th scope="col" class="manage-column" style="text-align: right; white-space: nowrap;">UI</th>
+            <th scope="col" class="manage-column" style="text-align: right; white-space: nowrap;">Post Count</th>
+            <th scope="col" class="manage-column" style="text-align: right">Rewrite</th>
+            <th scope="col" class="manage-column" style="text-align: right; white-space: nowrap;">Object Types</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for name, taxonomy in options.custom_taxonomies.custom_taxonomies %}
+        <tr id="taxonomy_{{name}}">
+            <td><a href="{{plugin_url}}&section=custom_taxonomies&edit={{name|e:1}}" class="edit_taxonomy" title="click to fill the form above">{{name}}</td>
+            <td class="taxonomy_label">{{taxonomy.label}}</td>
+            <td class="taxonomy_hierarchical" style="text-align: right">{% if taxonomy.hierarchical %}<img src="{{admin_url}}images/yes.png" alt="Yes" />{% endif %}</td>
+            <td class="taxonomy_rewrite" style="text-align: right">{% if taxonomy.rewrite_hierarchical %}<img src="{{admin_url}}images/yes.png" alt="Yes" />{% endif %}</td>
+            <td class="taxonomy_public" style="text-align: right">{% if taxonomy.public %}<img src="{{admin_url}}images/yes.png" alt="Yes" />{% endif %}</td>
+            <td class="taxonomy_show_ui" style="text-align: right">{% if taxonomy.show_ui %}<img src="{{admin_url}}images/yes.png" alt="Yes" />{% endif %}</td>
+            <td class="taxonomy_update_count_callback" style="text-align: right">{% if taxonomy.update_count %}<img src="{{admin_url}}images/yes.png" alt="Yes" />{% endif %}</td>
+            <td class="taxonomy_rewrite" style="text-align: right">{% if taxonomy.rewrite %}<img src="{{admin_url}}images/yes.png" alt="Yes" />{% endif %}</td>
+            <td class="taxonomy_object_type" style="text-align: right;">{% for t in taxonomy.object_type %}{{t}}{% if not loop.last %}, {% endif %}{% endfor %}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>    
+{% endif %}
+
+<h4>Default Taxonomies</h4>
+<table class="widefat" style="width: 800px" cellspacing="0">
+    <thead>
+        <tr>
+            <th scope="col" class="manage-column">Taxonomy</th>
+            <th scope="col" class="manage-column">Label</th>
+            <th scope="col" class="manage-column" style="text-align: right">Hierarchical</th>
+            <th scope="col" class="manage-column" style="text-align: right; white-space: nowrap;">Hier. URL</th>
+            <th scope="col" class="manage-column" style="text-align: right; white-space: nowrap;">Admin</th>
+            <th scope="col" class="manage-column" style="text-align: right; white-space: nowrap;">UI</th>
+            <th scope="col" class="manage-column" style="text-align: right; white-space: nowrap;">Post Count</th>
+            <th scope="col" class="manage-column" style="text-align: right">Rewrite</th>
+            <th scope="col" class="manage-column" style="text-align: right; white-space: nowrap;">Object Types</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for name, taxonomy in section_vars.default_taxonomies %}
+        <tr>
+            <td>{{name}}</td>
+            <td>{{taxonomy.label}}</td>
+            <td style="text-align: right">{% if taxonomy.hierarchical %}<img src="{{admin_url}}images/yes.png" alt="Yes" />{% endif %}</td>
+            <td style="text-align: right">{% if taxonomy.rewrite_hierarchical %}<img src="{{admin_url}}images/yes.png" alt="Yes" />{% endif %}</td>
+            <td style="text-align: right">{% if taxonomy.public %}<img src="{{admin_url}}images/yes.png" alt="Yes" />{% endif %}</td>
+            <td style="text-align: right">{% if taxonomy.show_ui %}<img src="{{admin_url}}images/yes.png" alt="Yes" />{% endif %}</td>
+            <td style="text-align: right">{% if taxonomy.update_count %}<img src="{{admin_url}}images/yes.png" alt="Yes" />{% endif %}</td>
+            <td class="taxonomy_rewrite" style="text-align: right">{% if taxonomy.rewrite %}<img src="{{admin_url}}images/yes.png" alt="Yes" />{% endif %}</td>
+            <td style="text-align: right;">{% for t in taxonomy.object_type %}{{t}}{% if not loop.last %}, {% endif %}{% endfor %}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>    
+
+
+{% endblock %}

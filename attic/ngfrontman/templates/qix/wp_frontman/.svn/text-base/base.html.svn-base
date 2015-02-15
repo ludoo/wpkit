@@ -1,0 +1,58 @@
+{% load wpf_sidebar_tags %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+    <head>
+        <title>{% block page_title %}{{blog_options.blogname}}{% endblock %}</title>
+        <meta http-equiv="Content-Type" content="text/html; charset={{blog_options.blog_charset}}" />
+        <link rel="stylesheet" href="{{blog.options.theme_url}}style.css" type="text/css" />
+        <link rel="alternate" type="application/atom+xml" title="Atom Feed, full entries" href="{% url wpf_feed %}" />
+        <script type="text/javascript">//<![CDATA[
+            function search_get() {
+                var q = document.getElementById('q');
+                var f = document.getElementById('searchform');
+                if (!q || !f)
+                    return;
+                if (!q.value) {
+                    q.className = 'error';
+                    return;
+                }
+                location.href = f.action + encodeURIComponent(q.value) + '/';
+                return false;
+            }
+        //]]></script>
+        {% block extrahead %}{% endblock %}
+    </head>
+    <body>
+        <div id="header">
+            <h1 id="title">{% block header_title %}<a href="{% url wpf_index %}" title="{{blog.options.blogname|striptags|escape}}">{{blog.options.blogname}}</a>{% endblock %}</h1>
+        </div>
+    <div id="page">
+        <div id="content">
+            <div class="right meta">
+                {% wpf_sb_pages %}
+                {% block sidebar %}
+                {% endblock %}
+                <!-- blogroll -->
+                <h3>powered by</h3>
+                <ul>
+                    <li><a href="http://wp-frontman.com/">WP Frontman</a> + WP</li>
+                </ul>
+                <h3>elsewhere</h3>
+                <ul>
+                <li><a href="http://altroformato.it/">altroformato</a></li>
+                </ul>
+                <h3>friends</h3>
+                <ul>
+                <li><a href="http://arredarecasa-blog.it/">arredare casa</a></li>
+                </ul>
+                <h3>copyright</h3>
+                <ul>
+                    <li>&copy; 2004-2012<br />Ludovico Magnocavallo<br />tutti i diritti riservati</li>
+                </ul>
+            </div>
+            {% block content %}
+            {% endblock %}
+        </div>
+    </div>
+</body>
+</html>

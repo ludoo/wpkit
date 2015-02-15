@@ -1,0 +1,18 @@
+{% extends 'wp_frontman/post.html' %}
+{% load wpf_sb_tags %}
+
+{% block blogtitle %}{% if page > 1 %}Page {{page}} | {% endif %}{{post.title|safe}} | {{blog.blogname}}{% endblock %}
+
+{% block body_cssclass %}page page-id-{{post.id}} page-template page-template-default{% endblock %}
+
+{% block content %}
+<div id="content" role="main">
+    <div id="post-{{post.id}}" class="post-{{post.id}} page type-page hentry{% for t in post.taxonomy %} {{t.as_cssclass}}{% endfor %}">
+        <h1 class="entry-title">{{post.title|safe}}</h1>
+        <div class="entry-content">
+            {{post.content_parsed|safe}}
+        </div>
+    </div>
+    {% include 'wp_frontman/fragments/comments_block.html' %}
+</div>
+{% endblock %}

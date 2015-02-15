@@ -1,0 +1,9 @@
+<div class="wrap">
+    <div class="icon32" style="background: transparent url({{plugin_url}}/media/trumpet_32.png) no-repeat"><br /></div>
+    <h2>{{title}}</h2>
+    {% block message %}
+    {% if message %}<div id="message" class="error"><p>{{message|safe}}</p></div>{% endif %}
+    {% endblock %}
+    {% block content %}
+    {% endblock %}
+</div>

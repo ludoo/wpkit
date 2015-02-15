@@ -1,0 +1,67 @@
+{% load wpf_sb_tags %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="it" lang="it">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="verify-v1" content="d2yr6Vrg+0OJpEufkLGakd+IosUlfG81p1U8OIxcIFE=" />
+        <link rel="openid.server" href="http://www.myopenid.com/server" />
+        <link rel="openid.delegate" href="http://ludo.myopenid.com/" />
+        <link rel="stylesheet" href="{{blog.themes_root_url}}qix.css" type="text/css" />
+        <link rel="alternate" type="application/atom+xml" title="Atom Feed, full entries" href="{% url wpf_feed %}" />
+        <script type="text/javascript">//<![CDATA[
+            function search_get() {
+                var q = document.getElementById('q');
+                var f = document.getElementById('searchform');
+                if (!q || !f)
+                    return;
+                if (!q.value) {
+                    q.className = 'error';
+                    return;
+                }
+                location.href = f.action + encodeURIComponent(q.value) + '/';
+                return false;
+            }
+        //]]></script>
+        {% block extrahead %}{% endblock %}
+        <title>{% block blogtitle %}{{blog.blogname}}{% if blog.blogdescription %} | {{blog.blogdescription}}{% endif %}{% endblock %}</title>
+    </head>
+    <body>
+    <div id="header">
+        <h1 id="title">{% block header_title %}<a href="{% url wpf_index %}" title="{{blog.blogname|striptags|escape}}">{{blog.blogname}}</a>{% endblock %}</h1>
+    </div>
+    <div id="page">
+        <div id="content">
+            <div class="right meta">
+                {% sb_pages %}
+                {% block sb_widgets %}
+                {% endblock %}
+                <!-- blogroll -->
+                <h3>powered by</h3>
+                <ul>
+                    <li>WPFrontman + WP</li>
+                </ul>
+                <h3>copyright</h3>
+                <ul>
+                    <li>&copy; 2004-2011<br />Ludovico Magnocavallo<br />tutti i diritti riservati</li>
+                </ul>
+            </div>
+            {% block content %}
+            {% endblock %}
+        </div>
+    </div>
+<!--script type="text/javascript">
+lloogg_clientid = "831001048cda472";
+</script>
+<script type="text/javascript" src="http://lloogg.com/l.js?c=831001048cda472">
+</script>
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-594685-1");
+pageTracker._trackPageview();
+} catch(err) {}</script-->
+</body>
+</html>

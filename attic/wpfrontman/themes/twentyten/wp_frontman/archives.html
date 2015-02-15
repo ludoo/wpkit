@@ -1,0 +1,13 @@
+{% extends 'wp_frontman/base.html' %}
+
+
+{% block blogtitle %}{{dt_start|date:"F"}} | {{dt_start|date:"Y"}} | {{block.super}}{% if page > 1 %} | Page {{page}}{% endif %}{% endblock %}
+
+{% block body_cssclass %}archive date{% endblock %}
+
+{% block content %}
+<div id="content" role="main">
+    <h1 class="page-title">Monthly Archives: <span>{{dt_start|date:"F Y"}}</span></h1>
+    {% include 'wp_frontman/fragments/posts_list.html' %}
+</div>
+{% endblock %}

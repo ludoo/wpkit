@@ -1,0 +1,12 @@
+{% extends 'wp_frontman/base.html' %}
+
+
+{% block blogtitle %}Profile for {{user.nicename}} | {{block.super}}{% endblock %}
+
+{% block content %}
+<div id="content" class="widecolumn">
+    Stub page for {{user.nicename}}'s profile.
+</div>
+{% endblock %}
+
+{% block primary %}{% endblock %}

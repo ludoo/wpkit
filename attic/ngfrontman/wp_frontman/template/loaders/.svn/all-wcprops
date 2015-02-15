@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/!svn/ver/1422/ngfrontman/wp_frontman/template/loaders
+END
+filesystem.py
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/!svn/ver/1422/ngfrontman/wp_frontman/template/loaders/filesystem.py
+END
+cached.py
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/!svn/ver/1422/ngfrontman/wp_frontman/template/loaders/cached.py
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/!svn/ver/1422/ngfrontman/wp_frontman/template/loaders/__init__.py
+END

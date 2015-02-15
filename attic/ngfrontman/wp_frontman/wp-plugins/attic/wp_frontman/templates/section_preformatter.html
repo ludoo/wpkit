@@ -1,0 +1,30 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+{% if not site_options.preformatter.value %}
+<p>Preformatting is disabled, please ask your network administrator to enable it globally.</p>
+{% else %}
+
+<h3>Options</h3>
+<form method="post">
+    <p>
+        <input type="checkbox" id="relative_urls" name="relative_urls" value="1" {% if options.preformatter.relative_urls %} checked="checked"{% endif %} />
+        <label for="relative_urls">Convert local absolute URLs in <code>img</code> tags to relative URLs</label>
+    </p>
+    <p><input type="submit" class="button-primary" name="submit" value="Save"></p>
+</form>
+
+<h3>Batch preformatting</h3>
+{% if options.preformatter.batch_done %}
+<p>Old content has already been formatted. You can restart the process from scratch by clicking the following button.</p>
+<a href="#" id="wpf_preformatter_batch_start" class="button-primary">Clear preformatted content and restart batch preformatting</a>
+{% else %}
+<p>Old content has not been formatted yet. Click on the following button to start the batch preformatting process.</p>
+<a href="#" id="wpf_preformatter_batch_start" class="button-primary">Start batch preformatting</a>
+{% endif %}
+<em id="wpf_preformatter_batch_start_info"></em>
+
+{% endif %}
+
+{% endblock %}

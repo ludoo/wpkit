@@ -1,0 +1,76 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-03-25 16:17+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms:  nplurals=2; plural=(n != 1);\n"
+
+#: feeds.py:50
+#, python-format
+msgid "%s Comments"
+msgstr "%s - Commenti"
+
+#: feeds.py:75
+#, python-format
+msgid "Comments for %s"
+msgstr "Commenti per %s"
+
+#: forms.py:19
+msgid "Name"
+msgstr "Nome"
+
+#: forms.py:20
+msgid "Mail"
+msgstr "Email"
+
+#: forms.py:21
+msgid "Website"
+msgstr "URL"
+
+#: forms.py:22
+msgid "Remember me"
+msgstr "Ricorda i miei dati"
+
+#: forms.py:22
+msgid "Flag this box to rember your personal info between sessions"
+msgstr "Selezionare qusta casella per memorizzare i dati personali"
+
+#: forms.py:23
+msgid "Comment"
+msgstr "Commento"
+
+#: views.py:86 views.py:89 views.py:92
+msgid "No such post"
+msgstr "Post non trovato"
+
+#: views.py:101
+msgid "No such page."
+msgstr "Pagina non trovata"
+
+#: views.py:120
+msgid "Cannot post this comment"
+msgstr "Impossibile inserire questo commento"
+
+#: views.py:139
+msgid "Invalid or empty content"
+msgstr "Contenuto vuoto o non valido"
+
+#: views.py:181
+msgid "No such archive."
+msgstr "Archivio non trovato"
+
+#: views.py:206
+msgid "No such category."
+msgstr "Categoria non trovata"

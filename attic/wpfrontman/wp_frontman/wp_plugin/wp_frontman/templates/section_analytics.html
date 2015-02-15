@@ -1,0 +1,100 @@
+{% extends 'main.html' %}
+
+{% block content %}
+{% if options.analytics.enabled %}
+{% if section_vars.status %}
+<h4>Status</h4>
+<table class="widefat" style="width: 600px" cellspacing="0">
+    <tr>
+        <th scope="col" class="manage-column">Timestamp</th>
+        <th scope="col" class="manage-column">Error</th>
+        <th scope="col" class="manage-column">Message</th>
+    </tr>
+    {% for row in section_vars.status %}
+    <tr>
+        <td>{{row.tstamp}}</td>
+        <td>{{row.error}}</td>
+        <td>{{row.message}}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endif %}
+{% if section_vars.daily %}
+<h4>Top 5 posts for yesterday</h4>
+<table class="widefat" style="width: 600px" cellspacing="0">
+    <tr>
+        <th scope="col" class="manage-column">Id</th>
+        <th scope="col" class="manage-column">Title</th>
+        <th scope="col" class="manage-column">Published</th>
+        <th scope="col" class="manage-column">Visitors</th>
+        <th scope="col" class="manage-column">Pageviews</th>
+    </tr>
+    {% for row in section_vars.daily %}
+    <tr>
+        <td><a href="{{admin_url}}post.php?post={{row.post_id}}&action=edit">{{row.post_id}}</a></td>
+        <td>{{row.post.title|safe}}</td>
+        <td nowrap="nowrap">{{row.post.day}}</td>
+        <td style="text-align: right">{{row.visitors}}</td>
+        <td style="text-align: right">{{row.pageviews}}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endif %}
+{% if section_vars.weekly %}
+<h4>Top 5 weekly posts</h4>
+<table class="widefat" style="width: 600px" cellspacing="0">
+    <tr>
+        <th scope="col" class="manage-column">Id</th>
+        <th scope="col" class="manage-column">Title</th>
+        <th scope="col" class="manage-column">Published</th>
+        <th scope="col" class="manage-column">Visitors</th>
+        <th scope="col" class="manage-column">Pageviews</th>
+    </tr>
+    {% for row in section_vars.weekly %}
+    <tr>
+        <td><a href="{{admin_url}}post.php?post={{row.post_id}}&action=edit">{{row.post_id}}</a></td>
+        <td>{{row.post.title|safe}}</td>
+        <td nowrap="nowrap">{{row.post.day}}</td>
+        <td style="text-align: right">{{row.visitors}}</td>
+        <td style="text-align: right">{{row.pageviews}}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endif %}
+{% endif %}
+<form method="post" action="{{plugin_url}}&section=analytics">
+    <h4>Options</h4>
+    <p>
+        <input type="checkbox" name="enabled" id="enabled"{% if options.analytics.enabled %} checked="checked"{% endif %} />
+        <label for="enabled">Enable Google Analytics access</label>
+    </p>
+    {% if options.analytics.token %}
+    <p>Token is set, {% if options.analytics.session_token %}and session token has been obtained.{% else %}but it has not yet been converted to a session token.{% endif %}</p>
+    {% else %}
+    <p>
+        To grant WP Frontman access to your Analytics data, you need to
+        <a href="https://www.google.com/accounts/AuthSubRequest?scope=https%3A%2F%2Fwww.google.com%2Fanalytics%2Ffeeds&secure=0&session=1&domain=default&hd=default&next={{section_vars.request_url}}">follow this link</a>.
+    </p>
+    {% endif %}
+    <p>
+        <label for="account_">Account ID</label>
+        <br />
+        <input type="text" name="account_id" id="account_id" value="{{options.analytics.account_id}}" style="width: 480px" />
+    </p>
+    <p>
+        <label for="filter">Filter for post URLs</label>
+        <br />
+        <input type="text" name="filter" id="filter" value="{{options.analytics.filter}}" style="width: 480px" />
+    </p>
+    
+    <p><input type="submit" class="button-primary" name="submit" value="Save" /></p>
+</form>
+{% if options.analytics.token %}
+<h4>Reset tokens</h4>
+<form method="post" action="{{plugin_url}}&section=analytics">
+    <input type="hidden" name="analytics_reset" value="1" />
+    <p><input type="submit" class="button-primary" name="submit" value="Reset" /></p>
+</form>
+{% endif %}
+
+{% endblock %}

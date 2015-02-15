@@ -1,0 +1,64 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<form method="post">
+    <p>
+        <input type="checkbox" name="enabled" id="enabled"{% if options.featured_images.enabled %} checked="checked"{% endif %} />
+        <label for="enabled">Enable featured images independently from the WP theme options</label>
+    </p>
+    <p><input type="submit" class="button-primary" name="submit" value="Save"></p>
+</form>
+<h4>Add a size</h4>
+<form method="post">
+    <input type="hidden" name="additional_size" value="1" />
+    <table>
+        <tr>
+            <td><label for="name">Name</label></td>
+            <td><label for="width">Width</label></td>
+            <td><label for="height">Height</label></td>
+            <td><label for="crop">Crop</label></td>
+        </tr>
+        <tr>
+            <td><input type="text" name="name" id="name" value="{{section_vars.name|default 'default'}}" /></td>
+            <td>
+                <input type="text" name="width" id="width" value="{{section_vars.width}}" style="width: 48px;" />
+            </td>
+            <td>
+                <input type="text" name="height" id="height" value="{{section_vars.height}}" style="width: 48px;" />
+            </td>
+            <td>
+                <input type="checkbox" name="crop" id="crop"{% if section_vars.crop %} checked="checked"{% endif %} />
+            </td>
+        </tr>
+    </table>
+    <p><input type="submit" class="button-primary" name="submit" value="Save"></p>
+</form>
+
+<h4>Sizes</h4>
+{% if not options.featured_images.sizes %}
+<p>No sizes defined.</p>
+{% else %}
+<table class="widefat" style="width: 600px" cellspacing="0">
+    <thead>
+        <tr>
+            <th scope="col" class="manage-column">Name</th>
+            <th scope="col" class="manage-column" style="text-align: right">Width</th>
+            <th scope="col" class="manage-column" style="text-align: right">Height</th>
+            <th scope="col" class="manage-column" style="text-align: right">Crop</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for name, attrs in options.featured_images.sizes %}
+        <tr>
+            <td>{{name}}{% if name == 'default' %} <em>(use it as <code>post-thumbnail</code>)</em>{% endif %}</td>
+            <td style="text-align: right">{{attrs.width}}</td>
+            <td style="text-align: right">{{attrs.height}}</td>
+            <td style="text-align: right">{% if attrs.crop %}Yes{% endif %}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>    
+{% endif %}
+
+
+{% endblock %}

@@ -1,0 +1,14 @@
+{% load wpf_tags %}
+<h3>altre destinazioni</h3>
+<ul>
+{% rendertree pages max_level %}
+<li class="{% if request.path and request.path == node.get_absolute_url %}current{% endif %}">
+    <a href="{{node.get_absolute_url}}" title="{{node.title|striptags|safe}}">{{node.title|lower|wpf_widont}}</a>
+    {% if not is_leaf %}
+    <ul class="children">
+        {{children}}
+    </ul>
+    {% endif %}
+</li>
+{% endrendertree %}
+</ul>

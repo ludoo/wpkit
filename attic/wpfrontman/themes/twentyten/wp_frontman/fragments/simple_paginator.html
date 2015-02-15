@@ -1,0 +1,8 @@
+<div class="nav-previous">
+    {% if page_next %}<a href="{{page_next_url}}" title="Older posts (page {{page_next}})"><span class="meta-nav">←</span> Older posts</a>{% endif %}
+</div>
+<div class="nav-next">
+    {% if page_previous %}
+    <a href="{{page_previous_url}}" title="Newer posts (page {{page_previous}})">Newer posts <span class="meta-nav">→</span></a>
+    {% endif %}
+</div>

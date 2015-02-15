@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 34
+/!svn/ver/2193/ngfrontman/testdata
+END
+wp-config.php.single
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/!svn/ver/1026/ngfrontman/testdata/wp-config.php.single
+END
+wpf-fcgi
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/!svn/ver/1177/ngfrontman/testdata/wpf-fcgi
+END
+lighttpd.conf
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/!svn/ver/2193/ngfrontman/testdata/lighttpd.conf
+END
+wpf_multi.sql.gz
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/!svn/ver/1461/ngfrontman/testdata/wpf_multi.sql.gz
+END
+lighttpd-gunicorn.conf
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/!svn/ver/1178/ngfrontman/testdata/lighttpd-gunicorn.conf
+END
+start-gunicorn.sh
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/!svn/ver/1184/ngfrontman/testdata/start-gunicorn.sh
+END
+wp-config.php.multi
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/!svn/ver/1038/ngfrontman/testdata/wp-config.php.multi
+END
+wpf.sql.gz
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/!svn/ver/2193/ngfrontman/testdata/wpf.sql.gz
+END
+start-fcgi.sh
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/!svn/ver/1177/ngfrontman/testdata/start-fcgi.sh
+END

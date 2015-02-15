@@ -1,0 +1,6 @@
+{% if obj.use_excerpts_in_feeds and obj.more %}
+{{obj.summary_parsed}}
+<p><a href="http://{{site.domain}}{{obj.get_absolute_url}}">Read in full</a></p>
+{% else %}
+{{obj.content_parsed}}
+{% endif %}

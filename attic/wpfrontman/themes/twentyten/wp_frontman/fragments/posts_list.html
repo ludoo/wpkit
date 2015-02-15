@@ -1,0 +1,61 @@
+{% load wpf_tags %}
+
+<div id="nav-above" class="navigation">
+    {% include 'wp_frontman/fragments/simple_paginator.html' %}
+</div>
+
+{% if posts %}
+{% for post in posts %}
+
+<div id="post-{{post.id}}" class="post-{{post.id}} post type-post hentry{% if obj.taxonomy_slug %} {{obj.taxonomy_slug}} {{obj.taxonomy_slug}}-{{obj.term.id}}{% endif %}">
+    <h2 class="entry-title"><a href="{{post.get_absolute_url}}" title="Permalink to {{post.title|striptags|escape}}" rel="bookmark">{{post.title|safe}}</a></h2>
+
+    <div class="entry-meta">
+        <span class="meta-prep meta-prep-author">Posted on</span>
+        <a href="{{post.get_absolute_url}}" title="{{post.date|time:blog.time_format}}" rel="bookmark"><span class="entry-date">{{post.date|date:blog.date_format}}</span></a>
+        <span class="meta-sep">by</span>
+        <span class="author vcard"><a class="url fn n" href="{{post.author.get_absolute_url}}" title="View all posts by {{post.author.nicename}}">{{post.author.nicename}}</a></span>
+    </div>
+    <div class="{% block entry_content_cssclass %}entry-summary{% endblock %}">
+        <p>
+            {{post.excerpt|safe}}
+            {% if post.more %}
+            &hellip;
+            <a href="{{post.get_absolute_url}}#more-{{post.id}}">Continue reading <span class="meta-nav">→</span></a>
+            {% endif %}
+        </p>
+    </div>
+    <div class="entry-utility">
+        {% if post.categories %}
+        <span class="cat-links">
+            <span class="entry-utility-prep entry-utility-prep-cat-links">Posted in</span>
+
+            {% for category in post.categories %}
+            <a class="category" href="{{category.get_absolute_url}}" title="View all posts in {{category.term.name|striptags|escape}}" rel="category tag">{{category.term.name}}</a>{% if not forloop.last %},{% endif %}
+            {% endfor %}
+        </span>
+        <span class="meta-sep">|</span>
+        {% endif %}
+        {% if post.tags %}
+        <span class="tag-links">
+            <span class="entry-utility-prep entry-utility-prep-tag-links">Tagged</span>
+            {% for tag in post.tags %}
+            <a href="{{tag.get_absolute_url}}" title="Read all posts in {{tag.term.name|striptags|escape}}" rel="tag">{{tag.term.name}}</a>{% if not forloop.last %},{% endif %}
+            {% endfor %}
+        </span>
+        <span class="meta-sep">|</span>
+        {% endif %}
+        <span class="comments-link">
+            <a href="{{post.get_absolute_url}}#comments" title="Comment on {{post.title|striptags|escape}}">{% if post.comment_count %}{{post.comment_count}} Comment{{post.comment_count|pluralize}}{% else %}Leave a comment{% endif %}</a>
+        </span>
+    </div>
+</div>
+
+{% endfor %}
+{% else %}
+<p>No posts found.</p>
+{% endif %}
+
+<div id="nav-below" class="navigation">
+    {% include 'wp_frontman/fragments/simple_paginator.html' %}
+</div>

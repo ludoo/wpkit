@@ -1,0 +1,8 @@
+<h3>archivi</h3>
+<ul>
+    {% for archive in archives %}
+    <li>
+        <a href="{{archive.get_absolute_url}}" title="Read all posts for {{archive.dt|date:'F Y'}}">{{archive.dt|date:"F Y"|lower}}</a>&nbsp;&laquo;
+    </li>
+    {% endfor %}
+</ul>

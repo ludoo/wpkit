@@ -1,0 +1,4 @@
+<h3><label for="q">cerca nei contenuti</label></h3>
+<form id="searchform" method="get" action="{% url wpf_search %}" onsubmit="return search_get();">
+    <input type="text" value="{{q}}" name="q" id="q" />
+</form>

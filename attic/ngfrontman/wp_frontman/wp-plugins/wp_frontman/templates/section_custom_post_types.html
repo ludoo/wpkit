@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if action %}
+<h4>{% if action == 'edit' %}Edit{% else %}New{% endif %} Post Type</h4>
+{% if error %}<p>{{error}}</p>{% endif %}
+<form method="POST" action="{{module_url}}">
+    <input type="hidden" name="action" value="{{action}}" />
+    <input type="hidden" name="id" value="{{id}}" />
+    <table class="form-table">
+        <tbody>
+            <tr valign="top">
+                <th scope="row"><label for="label"{% if label_error %} class="wpf_error"{% endif %}>Label</label></th><td><input type="text" name="label" value="{{edit_data.label}}" /></td>
+            </tr>
+            <tr valign="top">
+                <th scope="row"><label for="name"{% if name_error %} class="wpf_error"{% endif %}>Name</label></th><td><input type="text" name="name" value="{{edit_data.name}}" /></td>
+            </tr>
+            <tr valign="top">
+                <th scope="row"><label for="slug">Rewrite Slug</label></th><td><input type="text" name="rewrite_slug" value="{{edit_data.rewrite_slug}}" /></td>
+            </tr>
+            <tr valign="top">
+                <th scope="row"><label for="query_var">Query Var</label></th><td><input type="text" name="query_var" value="{{edit_data.query_var}}" /> <span style="color: #999; font-style: italic">defaults to the taxonomy name when set to '1'</span></td>
+            </tr>
+            <tr valign="top">
+                <th scope="row">Attributes</th>
+                <td><fieldset>
+                    <legend class="screen-reader-text"><span>Attributes</span></legend>
+                    <label title="hierarchical"><input type="checkbox" name="hierarchical" value="1" {% if edit_data.hierarchical %}checked="checked"{% endif %} /> <span>Hierarchical</span></label><br />
+                    <label title="public"><input type="checkbox" name="public" value="1" {% if edit_data.public %}checked="checked"{% endif %} /> <span>Public</span></label><br />
+                    <label title="count"><input type="checkbox" name="count" value="1" {% if edit_data.count %}checked="checked"{% endif %} /> <span>Count Posts</span></label>
+                </fieldset></td>
+            </tr>
+            <tr valign="top">
+                <th scope="row">Rewrite Attributes</th>
+                <td><fieldset>
+                    <legend class="screen-reader-text"><span>Rewrite Attributes</span></legend>
+                    <label title="rewrite_hierarchical"><input type="checkbox" name="rewrite_hierarchical" value="1" {% if edit_data.rewrite_hierarchical %}checked="checked"{% endif %} /> <span>Hierarchical</span></label><br />
+                    <label title="rewrite_with_front"><input type="checkbox" name="rewrite_with_front" value="1" {% if edit_data.rewrite_with_front %}checked="checked"{% endif %} /> <span>With Front</span></label><br />
+                </fieldset></td>
+            </tr>
+            <tr valign="top">
+                <th scope="row">{% if object_type_error %}<span class="wpf_error">Object Types</span>{% else %}Taxonomies{% endif %}</th>
+                <td><fieldset>
+                    <legend class="screen-reader-text"><span>Object Types</span></legend>
+                    {% for k, v in edit_data.taxonomy_types %}
+                    <label title="{{v.label}}"><input type="checkbox" name="taxonomy_type_{{v.name}}" value="1" {% if v.checked %}checked="checked"{% endif %} /> <span>{{v.label}}</span></label>{% if not forloop.last %}<br />{% endif %}
+                    {% endfor %}
+                </fieldset></td>
+            </tr>
+        </tbody>
+    </table>
+    <p class="submit"><input type="submit" name="submit" id="submit" class="button-primary" value="Save Changes"></p>
+</form>
+
+{% if id %}
+<form method="POST" action="{{module_url}}">
+    <input type="hidden" name="action" value="delete" />
+    <input type="hidden" name="id" value="{{id}}" />
+    <p class="submit"><input type="submit" name="submit" id="submit" class="button-primary" value="Delete Taxonomy"></p>
+</form>
+{% endif %}
+
+{% else %}
+
+<h4>Builtin Post Types</h4>
+
+<table class="widefat fixed" cellspacing="0">
+	<thead>
+        <tr>
+            <th scope="col">Label</th>
+            <th scope="col">Name</th>
+            <th scope="col">Hierarchical</th>
+            <th scope="col">Public</th>
+            <th scope="col">Rewrite Slug</th>
+            <th scope="col">Count</th>
+            <th scope="col">Objects</th>
+        </tr>
+	</thead>
+	<tbody>
+        {% for name, t in builtin_post_types %}
+		<tr class="even">
+            <th scope="row"><a href="?page=wp_frontman_custom_post_types&type=builtin&id={{name}}&action=edit">{{t.label}}</a></th>
+            <td>{{name}}</td>
+            <td>{{t.hierarchical|boolean}}</td>
+            <td>{{t.public|boolean}}</td>
+            <td>{{t.rewrite_slug}}</td>
+            <td>{{t.count|boolean}}</td>
+            <td>{% for o in t.object_type %}{{o}}{% endfor %}</td>
+        </tr>
+        {% endfor %}
+	</tbody>
+</table>
+
+<h4>Custom Post Types <a style="font-weight: normal; font-style: italic;" href="{{module_url}}&action=new">add new</a></h4>
+
+<table class="widefat fixed" cellspacing="0">
+	<thead>
+        <tr>
+            <th scope="col">Label</th>
+            <th scope="col">Name</th>
+            <th scope="col">Hierarchical</th>
+            <th scope="col">Public</th>
+            <th scope="col">Rewrite Slug</th>
+            <th scope="col">Count</th>
+            <th scope="col">Objects</th>
+        </tr>
+	</thead>
+	<tbody>
+        {% for name, t in custom_post_types %}
+		<tr class="even">
+            <th scope="row"><a href="?page=wp_frontman_custom_post_types&type=builtin&id={{name}}&action=edit">{{t.label}}</a></th>
+            <td>{{name}}</td>
+            <td>{{t.hierarchical|boolean}}</td>
+            <td>{{t.public|boolean}}</td>
+            <td>{{t.rewrite_slug}}</td>
+            <td>{{t.count|boolean}}</td>
+            <td>{% for o in t.object_type %}{{o}}{% endfor %}</td>
+        </tr>
+        {% endfor %}
+	</tbody>
+</table>
+
+{% endif %}
+
+{% endblock %}

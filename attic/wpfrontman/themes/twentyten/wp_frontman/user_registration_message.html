@@ -1,0 +1,21 @@
+{% extends 'wp_frontman/base.html' %}
+
+{% block blogtitle %}New User Registered | {{block.super}}{% endblock %}
+
+{% block extrahead %}
+<style type="text/css">
+		.mu_register { width: 90%; margin:0 auto; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div id="content" class="widecolumn">
+    <div class="mu_register">
+        <h2>New user registration successful</h2>
+        <p>Before you can start using your new username, <strong>you must activate it</strong>.</p>
+        <p>Check your inbox and click the link given.</p>
+        <p>If you do not activate your username within two days, you will have to sign up again.</p>
+	</div>
+</div>
+{% endblock %}
+

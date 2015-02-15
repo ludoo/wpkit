@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<table class="form-table">
+    <tbody>
+        <tr>
+            <th>WP Frontman mode</th>
+            <td>{% if mu %}Multiblog{% else %}Single Blog{% endif %}</td>
+        </tr>
+        <tr>
+            <th>Global Options<br />latest/current versions</th>
+            <td style="vertical-align: bottom">{{site_db_version}}/{{global_options._db_version}}</td>
+        </tr>
+        <tr>
+            <th>Blog Options<br />latest/current versions</th>
+            <td style="vertical-align: bottom">{{blog_db_version}}/{{blog_options._db_version}}</td>
+        </tr>
+    </tbody>
+</table>   
+
+{% if mu %}
+{% if is_mu_admin %}
+<h3>Site Defaults</h3>
+<p><em>The following options are network defaults.</em></p>
+{% include 'fragments/main_global_options.html' %}
+{% endif %}
+{% else %}
+<h3>General Options</h3>
+{% include 'fragments/main_global_options.html' %}
+{% endif %}
+
+<h3>URL patterns</h3>
+<form method="post">
+<table class="form-table">
+    <tbody>
+        <tr valign="top">
+            <th scope="row">The project's main URL patterns will be</th>
+            <td>
+                <fieldset>
+                    <legend class="screen-reader-text"><span>URL patterns</span></legend>
+                    <label title="Append project-wide URL patterns to this blog's URL patterns">
+                        <input type="radio" name="urlconf" value="append" {% if blog_options.urlconf == 'append' %}checked="checked"{% endif %} />
+                        <span>appended to this blog's URL patterns</span>
+                    </label>
+                    <br />
+                    <label title="Prepend project-wide URL patterns to this blog's URL patterns">
+                        <input type="radio" name="urlconf" value="prepend" {% if blog_options.urlconf == 'prepend' %}checked="checked"{% endif %} />
+                        <span>prepended to this blog's URL patterns</span>
+                    </label>
+                    <br />
+                    <label title="Ignore project-wide URL patterns for this blog">
+                        <input type="radio" name="urlconf" value="" {% if blog_options.urlconf == '' %}checked="checked"{% endif %} />
+                        <span>ignored for this blog</span>
+                    </label>
+                </fieldset>
+            </td>
+        </tr>
+</table>
+    <input type="hidden" name="action" value="urlconf" />
+    <p class="submit"><input type="submit" name="submit" id="submit" class="button-primary" value="Save Changes" /></p>
+</form>
+
+
+<!--
+<h3>Active Modules</h3>
+<form method="post">
+    <input type="hidden" name="action" value="active_modules" />
+    <table class="form-table">
+        <tbody>
+            {% for name, data in blog_options %}
+            {% if data.label %}
+            <tr valign="top">
+                <th scope="row"><label for="{{name}}">{{data.label}}</label></th>
+                <td><input name="{{name}}" type="checkbox" id="{{name}}" value="1" {% if data.enabled %}checked="checked" {% endif %}/></td>
+            </tr>
+            {% endif %}
+            {% endfor %}
+        </tbody>
+    </table>
+    <p class="submit"><input type="submit" name="submit" id="submit" class="button-primary" value="Save Changes"></p>
+</form>
+-->
+
+<h3>WP Defaults</h3>
+<table class="form-table">
+    <tbody>
+        {% for k, v in wp_constants %}
+        <tr>
+            <th>{{v.label}}</th>
+            {% if v.default == v.value %}
+            <td style="color: #003300;">ok</td>
+            {% else %}
+            <td style="color: #660000;">needs update</td>
+            {% endif %}
+            <!--
+            {{v.default}}
+            {{v.value}}
+            -->
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<form method="post">
+    <input type="hidden" name="action" value="wp_constants" />
+    <p class="submit"><input type="submit" name="submit" id="submit" class="button-primary" value="Synchronize WP Constants" /></p>
+</form>
+
+{% endblock %}

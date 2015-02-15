@@ -1,0 +1,31 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<h3>Cache endpoint</h3>
+<p>The cache endpoint is set by the network administrator, it currently points to <code>{{options.cache.destination}}</code></p>
+
+<h3>Force level 1 cache regeneration</h3>
+<p>
+    <a href="#" id="wpf_cache_regen" class="button-primary">Send a global timestamp to the cache engine</a>
+    <em id="wpf_cache_regen_info"></em>
+</p>
+
+<h3>Level 1 timestamps</h3>
+<p>
+    <a href="#" id="wpf_cache_stats" class="button-primary">Check global timestamps</a>
+    <em id="wpf_cache_stats_info"></em>
+</p>
+
+<table class="widefat" style="width: 600px; display: none;" cellspacing="0" id="wpf_cache_stats_data">
+    <thead>
+        <tr>
+            <th scope="col" class="manage-column" style="width: 100%">Timestamp</th>
+            <th scope="col" class="manage-column">Set on</th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>    
+
+{% endblock %}

@@ -1,0 +1,58 @@
+#! /bin/sh
+#
+# wpf-fcgi      Django fcgi for WP Frontman
+
+NAME=wpf
+DESC="Django fcgi for $NAME"
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+APPDIR=/var/virtual/wp/$NAME
+SOCKET_DIR=/var/run/fastcgi-django
+SOCKET=$SOCKET_DIR/$NAME.sock
+PID_DIR=/var/run/django
+PIDFILE=$PID_DIR/$NAME.pid
+USER=ludo
+GROUP=www-data
+PYTHON_EGG_CACHE=/tmp
+
+
+start() {
+    echo -n "Starting $DESC: "
+    for d in $SOCKET_DIR $PID_DIR; do
+        if [ ! -d $d ]; then
+            mkdir $d && chown $USER:$GROUP $d && chmod 2775 $d
+        fi
+    done
+    if start-stop-daemon --start --chuid $USER:$GROUP --pidfile $PIDFILE --exec /usr/bin/python --startas $APPDIR/manage.py -- runfcgi method=prefork socket=$SOCKET pidfile=$PIDFILE maxchildren=3 maxspare=1; then
+        chmod 660 $SOCKET
+        echo "$NAME."
+    fi
+}
+
+stop() {
+    echo -n "Stopping $DESC: "
+    if start-stop-daemon --stop --pidfile $PIDFILE --user $USER; then
+        rm -f $PIDFILE
+        echo "$NAME."
+    fi
+}
+
+case "$1" in
+  start)
+        start
+	;;
+  stop)
+        stop
+	;;
+  restart)
+    stop
+    sleep 1
+    start
+    ;;
+  *)
+	N=/etc/init.d/$NAME
+	log_success_msg "Usage: $N {start|stop|restart|reload|force-reload}"
+	exit 1
+	;;
+esac
+
+exit 0

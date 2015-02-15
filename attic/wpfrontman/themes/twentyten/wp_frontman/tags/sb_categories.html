@@ -1,0 +1,21 @@
+{% load wpf_tags %}
+<li id="categories-2" class="widget-container widget_categories">
+    <h3 class="widget-title">Categories</h3>
+    <ul>
+    {% rendertree categories max_level %}
+    <li class="cat-item cat-item-{{node.id}}">
+        {% if node.count or as_sets %}
+        <a href="{{node.get_absolute_url}}" title="View all posts filed under {{node.title|striptags|safe}}">{{node.term.name|safe}}</a>
+        <span style="font-size: 8px; color: #999; font-style: italic;">{{node.count}}</span>
+        {% else %}
+        {{node.term.name|safe}}
+        {% endif %}
+        {% if not is_leaf %}
+        <ul class="children">
+            {{children}}
+        </ul>
+        {% endif %}
+    </li>
+    {% endrendertree %}
+    </ul>
+</li>

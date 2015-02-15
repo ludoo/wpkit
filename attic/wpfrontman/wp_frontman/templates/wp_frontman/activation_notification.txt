@@ -1,0 +1,8 @@
+New user activated for {{blog.blogname}}
+
+Login          : {{user.login}}
+Password       : {{user.raw_passwd}}
+
+You can modify your password in your control panel at the following link
+
+{{profile_url}}

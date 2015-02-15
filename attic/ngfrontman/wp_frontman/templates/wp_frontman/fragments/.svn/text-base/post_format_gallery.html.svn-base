@@ -1,0 +1,45 @@
+{% load wpf_tags %}
+{% load wpf_post_tags %}
+{% with post.gallery_images as image_attachments %}
+<article id="post-{{post.id}}" class="post-{{post.id}} post type-{{post.post_type}} status-{{post.status}} format-gallery hentry category-toplevel-category">
+	<header class="entry-header">
+		<hgroup>
+			<h2 class="entry-title"><a href="{{post.get_absolute_url}}" title="Permalink to {{post.title|escape}}" rel="bookmark">{{post.title}}</a></h2>
+            <h3 class="entry-format">Gallery</h3>
+		</hgroup>
+
+		<div class="entry-meta">
+			<span class="sep">Posted on </span><a href="{{post.get_absolute_url}}" title="{{post.date|time:'G:i'}}" rel="bookmark"><time class="entry-date" datetime="{{post.date|date:'c'}}" pubdate="">{{post.date|date:'F j, Y'}}</time></a><span class="by-author"> <span class="sep"> by </span> <span class="author vcard"><a class="url fn n" href="{{post.author.get_absolute_url}}" title="View all posts by {{post.author.nickname}}" rel="author">{{post.author.nickname}}</a></span></span>
+        </div>
+	</header>
+    <div class="entry-content">
+        {% if image_attachments %}
+        <figure class="gallery-thumb">
+            {% with image_attachments.0.attachment_metadata.sizes.thumbnail as thumbnail %}
+            <a href="{{post.get_absolute_url}}"><img src="{{thumbnail.url}}" width="{{thumbnail.width}}" height="{{thumbnail.height}}" /></a>
+            {% endwith %}
+        </figure>
+        <p>
+            <em>This gallery contains <a href="{{post.get_absolute_url}}">{{image_attachments|length}} photo{{image_attachments|length|pluralize}}</a></em>
+        </p>
+        {% endif %}
+        {{post.excerpt}}
+    </div>
+    <footer class="entry-meta">
+        {% if post.categories %}
+        <span class="cat-links">
+			<span class="entry-utility-prep entry-utility-prep-cat-links">Posted in</span>
+            {% for category in post.categories %}
+            <a href="{{category.get_absolute_url}}" title="View all posts in {{category.term.name|escape}}" rel="category tag">{{category.term.name}}</a>{% if not forloop.last %},{% endif %}
+            {% endfor %}
+        </span>
+        {% endif %}
+        {% if post.categories and post.comment_count %}
+        <span class="sep"> | </span>
+        {% endif %}
+        {% if post.comment_count %}
+        <span class="comments-link"><a href="{{post.get_absolute_url}}#comments" title="Comment on {{post.title|escape}}"><b>{{post.comment_count}}</b> Repl{{post.comment_count|pluralize:"y,ies"}}</a></span>
+        {% endif %}
+    </footer>
+</article>
+{% endwith %}

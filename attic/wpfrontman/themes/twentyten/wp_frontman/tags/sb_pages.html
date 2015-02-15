@@ -1,0 +1,11 @@
+{% load wpf_tags %}
+{% rendertree pages max_level %}
+<li class="page_item page-item-{{node.id}}{% if request.path and request.path == node.get_absolute_url %} current_page_item{% endif %}">
+    <a href="{{node.get_absolute_url}}" title="{{node.title|striptags|safe}}">{{node.title|safe}}</a>
+    {% if not is_leaf %}
+    <ul class="children">
+        {{children}}
+    </ul>
+    {% endif %}
+</li>
+{% endrendertree %}

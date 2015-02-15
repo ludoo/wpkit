@@ -1,0 +1,17 @@
+<div class="nav-previous">
+    {% if post.previous %}
+    <a href="{{post.previous.get_absolute_url}}" rel="prev">
+        <span class="meta-nav">←</span>
+        {{post.previous.title|safe}}
+    </a>
+    {% endif %}
+</div>
+
+<div class="nav-next">
+    {% if post.next %}
+    <a href="{{post.next.get_absolute_url}}" rel="next">
+        {{post.next.title|safe}}
+        <span class="meta-nav">→</span>
+    </a>
+    {% endif %}
+</div>

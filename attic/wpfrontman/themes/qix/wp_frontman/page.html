@@ -1,0 +1,40 @@
+{% extends 'wp_frontman/base.html' %}
+{% load wpf_sb_tags %}
+{% load wpf_tags %}
+
+{% block blogtitle %}{% if page > 1 %}Pagina {{page}} | {% endif %}{{post.title|safe}} | {{blog.blogname}}{% endblock %}
+
+{% block extrahead %}
+{% if blog.thread_comments %}
+<script type="text/javascript" src="{{blog.includes_url}}js/comment-reply.js?ver=20090102"></script>
+{% endif %}
+{% endblock %}
+
+{% block sb_widgets %}
+{% sb_recent_posts 5 0 %}
+{% sb_tagcloud 20 96 144 192 1 %}
+{% include 'wp_frontman/fragments/search_form.html' %}
+{% endblock %}
+
+{% block content %}
+<h2 class="title middle">
+    <a href="{{post.get_absolute_url}}">{{post.title|wpf_widont}}</a>
+</h2>
+<div class="left meta dotted">
+    <p>
+        {{post.date|date:blog.date_format|lower}}
+    </p>
+    {% ifnotequal post.author.nicename 'ludo' %}
+    <p><em>{{post.author.nicename}}</em></p>
+    {% endifnotequal %}
+    <p>
+        <a href="{{post.get_absolute_url}}#comments">{{post.comment_count}}</a> comment{{post.comment_count|pluralize:"o,i"}}
+    </p>
+</div>
+<div class="summary middle">
+    {{post.content_parsed|safe}}
+</div>
+
+{% include 'wp_frontman/fragments/comments_block.html' %}
+
+{% endblock %}

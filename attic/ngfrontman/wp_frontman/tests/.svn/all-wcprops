@@ -1,0 +1,89 @@
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/!svn/ver/2834/ngfrontman/wp_frontman/tests
+END
+test_dynamic_taxonomies.py
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/!svn/ver/1530/ngfrontman/wp_frontman/tests/test_dynamic_taxonomies.py
+END
+test_wpf_tags.py
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/!svn/ver/1520/ngfrontman/wp_frontman/tests/test_wpf_tags.py
+END
+test_dynamic_posts.py
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/!svn/ver/2828/ngfrontman/wp_frontman/tests/test_dynamic_posts.py
+END
+test_postmeta.py
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/!svn/ver/2834/ngfrontman/wp_frontman/tests/test_postmeta.py
+END
+test_model_taxonomy.py
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/!svn/ver/1086/ngfrontman/wp_frontman/tests/test_model_taxonomy.py
+END
+test_model_user.py
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/!svn/ver/1104/ngfrontman/wp_frontman/tests/test_model_user.py
+END
+test_post_content.py
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/!svn/ver/2834/ngfrontman/wp_frontman/tests/test_post_content.py
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/!svn/ver/1030/ngfrontman/wp_frontman/tests/__init__.py
+END
+utils.py
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/!svn/ver/1031/ngfrontman/wp_frontman/tests/utils.py
+END
+test_blog.py
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/!svn/ver/1480/ngfrontman/wp_frontman/tests/test_blog.py
+END
+test_site.py
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/!svn/ver/1185/ngfrontman/wp_frontman/tests/test_site.py
+END
+test_post_prefetch.py
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/!svn/ver/2677/ngfrontman/wp_frontman/tests/test_post_prefetch.py
+END
+test_helpers_archives.py
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/!svn/ver/2829/ngfrontman/wp_frontman/tests/test_helpers_archives.py
+END
+test_urlconf.py
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/!svn/ver/1529/ngfrontman/wp_frontman/tests/test_urlconf.py
+END

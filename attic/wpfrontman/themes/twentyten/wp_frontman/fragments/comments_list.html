@@ -1,0 +1,37 @@
+{% load wpf_comments %}
+
+{% wpfcomments post page %}
+
+<h3 id="comments-title">{{post.comment_count}} Response{{post.comment_count|pluralize}} to <em>{{post.title|safe}}</em></h3>
+    
+{% if blog.comments_per_page %}{% include 'wp_frontman/fragments/simple_paginator_comments.html' %}{% endif %}
+    
+<ol class="commentlist">
+    {% for comment in comments %}
+    <li class="comment {% cycle 'odd' 'even' %}" id="li-comment-{{comment.id}}"><!--  thread-even depth-1 -->
+        <div id="comment-{{comment.id}}">
+            <div class="comment-author vcard">
+                {% if blog.show_avatars %}
+                <img alt="Avatar image for {{comment.author}}" src="http://www.gravatar.com/avatar/{{comment.gravatar_hash}}?s=40&amp;r=G&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40" class="avatar avatar-40 photo" height="40" width="40" />
+                {% endif %}
+                {% if comment.author_url %}
+                <cite><a href="{{comment.author_url}}" rel="external nofollow" class="url">{{comment.author}}</a></cite>
+                {% else %}
+                <cite>{{comment.author}}</cite>
+                {% endif %}
+                <span class="says">says:</span>
+            </div>
+            <div class="comment-meta commentmetadata">
+                <a href="{{comment.get_absolute_url}}">
+                    {{comment.date|date:blog.date_format}} at {{comment.date|time:blog.time_format}}
+                </a>
+            </div>
+            <div class="comment-body">
+                {{comment.content|safe}}
+            </div>
+        </div>
+    </li>
+    {% endfor %}
+</ol>
+
+{% if blog.comments_per_page %}{% include 'wp_frontman/fragments/simple_paginator_comments.html' %}{% endif %}

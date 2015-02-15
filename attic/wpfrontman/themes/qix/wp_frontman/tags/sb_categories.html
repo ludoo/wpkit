@@ -1,0 +1,18 @@
+{% load wpf_tags %}
+<h3>categorie</h3>
+<ul>
+    {% rendertree categories max_level %}
+    <li>
+        {% if node.count or as_sets %}
+        <a href="{{node.get_absolute_url}}" title="Leggi tutti i post in {{node.term.name|striptags|safe}}">{{node.term.name|safe|lower|wpf_widont}}</a>&nbsp;&laquo;
+        {% else %}
+        {{node.term.name|safe}}
+        {% endif %}
+        {% if not is_leaf %}
+        <ul class="children">
+            {{children}}
+        </ul>
+        {% endif %}
+    </li>
+    {% endrendertree %}
+</ul>

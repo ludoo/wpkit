@@ -1,0 +1,65 @@
+{% load wpf_tags %}
+{% load wpf_comments %}
+
+{% wpfcomments post page %}
+<h3 id="comments-title" class="middle">{{post.comment_count}} comment{{post.comment_count|pluralize:"o,i"}}</h3>
+
+<!-- remember to include pagination if comments are paged -->
+<ul class="commentlist">
+{% if blog.thread_comments %}
+    {% rendertree comments %}
+    <li id="comment-{{node.id}}">
+        <div class="left meta">
+            {% if node.author_url %}<a href="{{node.author_url}}" rel="external nofollow">{{node.author}}</a>{% else %}{{node.author}}{% endif %}
+            <br />
+            {{node.date|date:blog.date_format|lower}} <a href="{{node.get_absolute_url}}">#</a>
+            {% if blog.show_avatars %}
+            <!--
+            <br />
+            <img alt="Avatar per {{node.author}}" src="http://www.gravatar.com/avatar/{{node.gravatar_hash}}?s=40&amp;r=G&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40" class="avatar avatar-40 photo" height="40" width="40" />
+            -->
+            {% endif %}
+            <div class="reply">
+            {% if post.comment_status == 'open' and level < blog.thread_comments_depth %}
+                <a
+                    rel="nofollow" class="comment-reply-link"
+                    href="{{post.get_absolute_url}}?replytocom={{node.id}}#respond"
+                    onclick="return addComment.moveForm(&quot;comment-{{node.id}}&quot;, &quot;{{node.id}}&quot;, &quot;respond&quot;, &quot;5&quot;)"
+                    style="font-style: italic;">rispondi</a>
+            {% endif %}
+            </div>
+        </div>
+        <div class="middle{% if node.user_id %} owner{% endif %}">{{node.content|safe}}</div>
+    </li>
+    {% if not is_leaf %}
+    {{children}}
+    {% endif %}
+    {% endrendertree %}
+{% else %}
+{% for node in comments %}
+    <li id="comment-{{node.id}}">
+        <div class="left meta">
+            {% if node.author_url %}<a href="{{node.author_url}}" rel="external nofollow">{{node.author}}</a>{% else %}{{node.author}}{% endif %}
+            <br />
+            {{node.date|date:blog.date_format|lower}} <a href="{{node.get_absolute_url}}">#</a>
+            {% if blog.show_avatars %}
+            <!--
+            <br />
+            <img alt="Avatar per {{node.author}}" src="http://www.gravatar.com/avatar/{{node.gravatar_hash}}?s=40&amp;r=G&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40" class="avatar avatar-40 photo" height="40" width="40" />
+            -->
+            {% endif %}
+            <div class="reply">
+            {% if post.comment_status == 'open' and level < blog.thread_comments_depth %}
+                <a
+                    rel="nofollow" class="comment-reply-link"
+                    href="{{post.get_absolute_url}}?replytocom={{node.id}}#respond"
+                    onclick="return addComment.moveForm(&quot;comment-{{node.id}}&quot;, &quot;{{node.id}}&quot;, &quot;respond&quot;, &quot;5&quot;)"
+                    style="font-style: italic;">rispondi</a>
+            {% endif %}
+            </div>
+        </div>
+        <div class="middle{% if node.user_id %} owner{% endif %}">{{node.content|safe}}</div>
+    </li>
+{% endfor %}
+{% endif %}
+</ul>

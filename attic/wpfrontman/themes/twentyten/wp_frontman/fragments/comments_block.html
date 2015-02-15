@@ -1,0 +1,22 @@
+<div id="comments">
+{% if post.comment_count %}
+{% if blog.thread_comments %}
+{% include 'wp_frontman/fragments/comments_list_threaded.html' %}
+{% else %}
+{% include 'wp_frontman/fragments/comments_list.html' %}
+{% endif %}
+{% endif %}
+
+{% if form %}
+{% include 'wp_frontman/fragments/comment_form.html' %}
+{% else %}
+{% if needs_login %}
+<div id="respond">
+<h3 id="reply-title">Leave a Reply</h3>
+<p>You must be <a rel="nofollow" class="comment-reply-link" href="{% url wpf_user_login %}?redirect_to={{request.path|urlencode}}">logged in</a> to post a comment.</p>
+</div>
+{% else %}
+<p class="nocomments">Comments are closed.</p>
+{% endif %}
+{% endif %}
+</div>

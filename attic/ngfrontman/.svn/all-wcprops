@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 25
+/!svn/ver/2843/ngfrontman
+END
+TODO.txt
+K 25
+svn:wc:ra_dav:version-url
+V 34
+/!svn/ver/1473/ngfrontman/TODO.txt
+END
+dbg.py
+K 25
+svn:wc:ra_dav:version-url
+V 32
+/!svn/ver/2196/ngfrontman/dbg.py
+END
+reset_options.py
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/!svn/ver/1170/ngfrontman/reset_options.py
+END
+dbg2.py
+K 25
+svn:wc:ra_dav:version-url
+V 33
+/!svn/ver/1527/ngfrontman/dbg2.py
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 37
+/!svn/ver/1025/ngfrontman/__init__.py
+END
+settings.py
+K 25
+svn:wc:ra_dav:version-url
+V 37
+/!svn/ver/2827/ngfrontman/settings.py
+END
+index.html
+K 25
+svn:wc:ra_dav:version-url
+V 36
+/!svn/ver/1521/ngfrontman/index.html
+END
+urls.py
+K 25
+svn:wc:ra_dav:version-url
+V 33
+/!svn/ver/1984/ngfrontman/urls.py
+END
+manage.py
+K 25
+svn:wc:ra_dav:version-url
+V 35
+/!svn/ver/2481/ngfrontman/manage.py
+END
+settings-multi.py
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/!svn/ver/1458/ngfrontman/settings-multi.py
+END

@@ -1,0 +1,45 @@
+<div id="respond">
+    <h3 id="reply-title" class="middle">
+        pubblica un commento
+        <!--
+        {% if comment_error %}<span class="required">{{comment_error}}</small>{% endif %}
+        -->
+        {% if blog.thread_comments %}<small><a rel="nofollow" id="cancel-comment-reply-link" href="{{post.get_absolute_url}}#respond" style="display: none; ">annulla la risposta</a></small>{% endif %}
+    </h3>
+    <form method="post" id="commentform" action="#respond">
+        {% csrf_token %}
+        <ul>
+            {% for field in form %}
+            {% if field.name != 'remember_info'  and field.name != 'comment_parent' %}
+            <li class="{{field.css_classes}}">
+                <div class="left{% if field.errors %} error{% endif %}{% if field.field.required %} required{% endif %}">{{field.label_tag|lower}}</div>
+                <div class="middle">
+                    <ul class="errorlist">
+                    {% if field.errors %}
+                    {% for error in field.errors %}<li class="error">{{error|lower}}</li>{% endfor %}
+                    {% else %}
+                    {% if field.field.required %}<li class="normal">campo obbligatorio</li>{% endif %}
+                    {% endif %}
+                    </ul>
+                    {{field}}
+                </div>
+            </li>
+            {% endif %}
+            {% endfor %}
+            <li>
+                <div class="middle form-submit">
+                    <input class="submit" type="submit" name="submit" value="pubblica" />
+                    <input type="hidden" name="comment_parent" id="comment_parent" />
+                    {% if form.remember_info %}
+                    {{form.remember_info}}
+                    <label for="id_remember_info"><small>ricorda i miei dati</small></label>
+                    {% else %}
+                    {% if user_login %}autenticato come <em>{{user_login}}</em>{% endif %}
+                    {% endif %}
+                </div>
+            </li>
+        </ul>
+        <!-- dummy field for WP threade comments reply form compatibility -->
+        <input type="hidden" name="comment_post_ID" />
+    </form>
+</div>

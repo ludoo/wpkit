@@ -1,0 +1,41 @@
+{% extends 'wp_frontman/base.html' %}
+
+{% block blogtitle %}Activate Registration | {{block.super}}{% endblock %}
+
+{% block extrahead %}
+<style type="text/css">
+		.mu_register { width: 90%; margin:0 auto; }
+		.mu_register form { margin-top: 2em; }
+		.mu_register input { width:100%; font-size: 24px; margin:5px 0; }
+		
+</style>
+{% endblock %}
+
+{% block content %}
+<div id="content" class="widecolumn">
+    <div class="mu_register">
+        {% if activation_key %}
+        <h2>An error occurred during the activation</h2>
+        <p>Invalid activation key.</p>
+        {% else %}
+        <h2>Activation Key Required</h2>
+        <form method="post" action="">
+            {% csrf_token %}
+            <p>
+                <label for="key">
+                    Activation Key
+                    <br />
+                    <input type="text" name="key" id="key" class="input" size="20" />
+                </label>
+            </p>
+            <p class="submit">
+                <input type="submit" name="wp-submit" id="wp-submit" class="button-primary" value="Activate" />
+            </p>
+        </form>
+        {% endif %}
+	</div>
+</div>
+{% endblock %}
+
+{% block primary %}{% endblock %}
+

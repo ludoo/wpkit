@@ -1,0 +1,14 @@
+{% extends 'wp_frontman/base.html' %}
+
+
+{% block blogtitle %}{{author.nicename}} | {{block.super}}{% if page > 1 %} | Page {{page}}{% endif %}{% endblock %}
+
+{% block body_cssclass %}archive author author-{{author.nicename}}{% endblock %}
+
+{% block content %}
+<div id="content" role="main">
+    <h1 class="page-title">Author Archives: <span>{{author.nicename}}</span></h1>
+    {% include 'wp_frontman/fragments/posts_list.html' %}
+</div>
+{% endblock %}
+

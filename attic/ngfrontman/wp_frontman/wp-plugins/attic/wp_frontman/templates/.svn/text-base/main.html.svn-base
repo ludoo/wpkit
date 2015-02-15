@@ -1,0 +1,100 @@
+<div class="wrap" id="wpf_options">
+    <h2>WP Frontman: {% if not section_label %}Options{% else %}{{section_label}}{% endif %}</h2>
+    {% if message %}
+    <div id="message" class="{{message_status}} fade"><p><strong>{{message}}</strong></p></div>
+    {% endif %}
+    <ul class="subsubsub">
+        <li><a href="{{plugin_url}}" class="{% if section_slug == 'main' %}current{% endif %}">Main Options and Features</a> |</li>
+        {% for slug, data in options %}
+        {% if data.label %}
+        <li>
+            <a href="{{plugin_url}}&section={{slug}}" class="{% if section_slug == slug %}current{% endif %}">{% if not data.enabled %}<s title="click to configure and enable">{{data.label}}</s>{% else %}{{data.label}}{% endif %}</a>
+            {% if not loop.last %}|{% endif %}
+        </li>
+        {% endif %}
+        {% endfor %}
+    </ul>
+    <div style="clear: left;">
+        
+        {% block content %}
+        <form method="post">
+        <h4>Favicon</h4>
+        <p>
+            {% if not site_options.global_favicon.value %}
+            Individual favicon files are set as a network-level setting, yours must be in <code>wp-content/blogs.dir/{{blog_id}}/favicon.ico</code>.
+            {% else %}
+            <input type="checkbox" name="custom_favicon" id="custom_favicon"{% if options.custom_favicon %} checked="checked"{% endif %} />
+            <label for="custom_favicon">Use a custom favicon file in <code>wp-content/blogs.dir/{{blog_id}}/favicon.ico</code></label>
+            {% endif %}
+        </p>
+        <h4>Robots Exclusion</h4>
+        <p>
+            {% if not site_options.global_robots.value %}
+            Individual robots exclusion files are set as a network-level setting, yours must be in <code>wp-content/blogs.dir/{{blog_id}}/robots.txt</code>.
+            {% else %}
+            <input type="checkbox" name="custom_robots" id="custom_robots"{% if options.custom_robots %} checked="checked"{% endif %} />
+            <label for="custom_robots">Use a custom robots exclusion file in <code>wp-content/blogs.dir/{{blog_id}}/robots.txt</code></label>
+            {% endif %}
+        </p>
+        <h4>Nested Categories</h4>
+        <p>
+            <select name="categories_as_sets" id="categories_as_sets">
+                <option value=""{% if not options.categories_as_sets %} selected{% endif %}>use the network setting (currently {% if site_options.categories_as_sets.value %}on{% else %}off{% endif %})</option>
+                <option value="0"{% if options.categories_as_sets == '0' %} selected{% endif %}>categories don't work as sets</option>
+                <option value="1"{% if options.categories_as_sets == '1' %} selected{% endif %}>categories work as sets</option>
+            </select>
+        </p>
+        <p><input type="submit" class="button-primary" name="submit" value="Save"></p>
+        </form>
+    
+        <h4>Variables</h4>
+        <table class="widefat" style="width: 600px" cellspacing="0">
+            <thead>
+                <tr>
+                    <th scope="col" class="manage-column">Name</th>
+                    <th scope="col" class="manage-column" style="text-align: right">Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Database Version</td>
+                    <td style="text-align: right">{{options.db_version}}</td>
+                </tr>
+            </tbody>
+        </table>    
+    
+        <h4>Network Options</h4>
+        {% if not site_options %}
+        <p>
+            Network options are needed for many WP Frontman functions like user authentication and caching,
+            please ask your network administrator to install, enable and configure the WP Frontman
+            mu plugin.
+        </p>
+        {% else %}
+        <table class="widefat" style="width: 600px" cellspacing="0">
+            <thead>
+                <tr>
+                    <th scope="col" class="manage-column">Name</th>
+                    <th scope="col" class="manage-column" style="text-align: right">Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for slug, data in site_options %}
+                <tr>
+                    <td>{{data.label}}</td>
+                    <td style="text-align: right">
+                        {% if data.descriptive_value %}
+                        {{data.descriptive_value}}
+                        {% else %}
+                        not set
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>    
+        {% endif %}
+
+        {% endblock %}
+    </div>
+</div>

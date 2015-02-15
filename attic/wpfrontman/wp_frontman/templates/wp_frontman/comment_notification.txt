@@ -1,0 +1,9 @@
+Author : {{comment.author}}
+E-mail : {{comment.author_email}}
+URL    : {{comment.author_url}}
+Comment:
+
+{{comment.content|safe}}
+
+You can see all comments on this post here: {{comment.base_post.get_permalink}}
+You can see this comment here:              {{comment.get_permalink}}

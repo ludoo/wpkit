@@ -1,0 +1,16 @@
+<form method="post">
+    <input type="hidden" name="action" value="global_options" />
+    <table class="form-table">
+        <tbody>
+            <tr valign="top">
+                <th scope="row"><label for="support_category_order">Category Order Plugin Support</label></th>
+                <td><input name="support_category_order" type="checkbox" id="support_category_order" value="1" {% if global_options.support_category_order %}checked="checked" {% endif %}/></td>
+            </tr>
+            <tr valign="top">
+                <th scope="row"><label for="use_sendfile">X-Sendfile Support</label></th>
+                <td><input name="use_sendfile" type="checkbox" id="use_sendfile" value="1" {% if global_options.use_sendfile %}checked="checked" {% endif %}/></td>
+            </tr>
+        </tbody>
+    </table>
+    <p class="submit"><input type="submit" name="submit" id="submit" class="button-primary" value="Save Changes"></p>
+</form>

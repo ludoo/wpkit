@@ -1,0 +1,17 @@
+<div class="navigation">
+    <div class="nav-previous">
+        {% if page_previous_url %}
+        <a
+            href="{{page_previous_url}}#comments"
+            title="{% ifequal blog.comment_order 'asc' %}Older{% else %}Newer{% endifequal %} Comments (page {{page_previous}})"
+            ><span class="meta-nav">←</span> {% ifequal blog.comment_order 'asc' %}Older{% else %}Newer{% endifequal %} Comments</a>
+            {% endif %}
+    </div>
+    <div class="nav-next">
+        {% if page_next_url %}
+        <a
+            href="{{page_next_url}}#comments"
+            title="{% ifequal blog.comment_order 'asc' %}Newer{% else %}Older{% endifequal %} Comments (page {{page_next}})"
+            >{% ifequal blog.comment_order 'asc' %}Newer{% else %}Older{% endifequal %} Comments <span class="meta-nav">→</span></a>{% endif %}
+    </div>
+</div>

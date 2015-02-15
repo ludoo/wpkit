@@ -1,0 +1,10 @@
+New user registration for {{blog.blogname}}
+
+Login          : {{signup.login}}
+E-mail         : {{signup.email}}
+Activation Key : {{signup.activation_key}}
+
+To activate your registration, click on the following link or copy and
+paste it to your browser.
+
+{{activation_url}}?key={{signup.activation_key}}

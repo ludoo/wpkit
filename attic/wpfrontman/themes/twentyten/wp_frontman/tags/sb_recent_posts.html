@@ -1,0 +1,10 @@
+{% if posts %}
+<li id="recent-posts-2" class="widget-container widget_recent_entries">
+    <h3 class="widget-title">Recent Posts</h3>
+    <ul>
+        {% for post in posts %}
+        <li><a href="{{post.get_absolute_url}}" title="{{post.title|striptags|escape}}">{{post.title}}</a></li>
+        {% endfor %}
+    </ul>
+</li>
+{% endif %}

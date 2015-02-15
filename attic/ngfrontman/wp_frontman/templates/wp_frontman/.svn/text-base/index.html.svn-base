@@ -1,0 +1,17 @@
+{% extends 'wp_frontman/base.html' %}
+
+{% block page_title %}{{block.super}}{% if page > 1 %} | Page {{page}}{% endif %}{% endblock %}
+
+{% block body_class %}home blog single-author two-column right-sidebar{% endblock %}
+
+{% block content %}
+<div id="content" role="main">
+{% include 'wp_frontman/fragments/posts_list.html' %}
+</div>
+<pre>
+permalink_structure_orig:   {{blog.options.permalink_structure_orig}}
+permalink_structure:        {{blog.options.permalink_structure}}
+permalink_tokens:           {{blog.options.permalink_tokens}}
+permalink_ps:               {{blog.options.permalink_ps}}
+</pre>
+{% endblock %}
